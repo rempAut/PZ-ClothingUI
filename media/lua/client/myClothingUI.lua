@@ -1,0 +1,377 @@
+require "ISUI/ISCollapsableWindow"
+require "ISUI/ISPanelJoypad"
+require "ISUI/ISLabel"
+
+local FONT_HGT_SMALL = getTextManager():getFontHeight(UIFont.Small)
+local FONT_HGT_MEDIUM = getTextManager():getFontHeight(UIFont.Medium)
+local clothingCategories = {};
+local buttonHeight = 40;
+local buttonWidth = 40;
+local buttonRowSpacing = 60;  -- spacing between rows
+local buttonColumnSpacing = 45;
+local buttonVerticalOffset = 40; --offset from the top of main window
+local buttonHorizontalOffset = 30+buttonWidth; --offset from the category button
+local toggleButton = {};
+
+myClothingUI = ISCollapsableWindow:derive("myClothingUI");
+
+function myClothingUI:new(x, y, width, height)
+    -- initalize categories
+    clothingCategories = {};
+    myClothingUI:createClothingCategories();
+
+    local o = {}
+    o = ISCollapsableWindow:new(x, y, width, height); -- like inventory window
+    setmetatable(o, self)
+    self.__index = self
+    o.backgroundColor = {r=0, g=0, b=0, a=0.8};
+    o.borderColor = {r=0.4, g=0.4, b=0.4, a=1};
+
+    o.categoryButtons = {};
+    -- display categories buttons
+    for k, v in pairs(clothingCategories) do
+        print("creating button "..k.." on row "..v["displayRow"]);
+        local catButton = myCategoryButton:new(10, (v["displayRow"]*buttonRowSpacing)+buttonVerticalOffset, 2*buttonWidth, buttonHeight, k, v);
+        o.categoryButtons[k] = catButton;
+        o:addChild(catButton);
+    end
+    return o
+end
+
+function myClothingUI:createClothingCategories()
+    print("creating clothing categories")
+
+--[[ LIST OF ALL VANILLA BODYLOCATIONS FROM THE GAME FILES
+        BodyLocation = FannyPackFront,		
+        BodyLocation = FannyPackBack,		
+        BodyLocation = Hat,		
+        BodyLocation = Mask,		
+        BodyLocation = FullHat,		
+        BodyLocation = MaskEyes,		
+        BodyLocation = MaskFull,		
+        BodyLocation = FullHelmet,		
+        BodyLocation = Jacket,		
+        BodyLocation = FullTop,		
+        BodyLocation = JacketHat,		
+        BodyLocation = Sweater,		
+        BodyLocation = TorsoExtra,		
+        BodyLocation = SweaterHat,		
+        BodyLocation = Necklace,		
+        BodyLocation = Necklace_Long,		
+        BodyLocation = Neck,		
+        BodyLocation = Nose,		
+        BodyLocation = Ears,		
+        BodyLocation = EarTop,		
+        BodyLocation = Right_MiddleFinger,		
+        BodyLocation = Left_MiddleFinger,		
+        BodyLocation = Right_RingFinger,		
+        BodyLocation = Left_RingFinger,		
+        BodyLocation = RightWrist,		
+        BodyLocation = LeftWrist,		
+        BodyLocation = BellyButton,		
+        BodyLocation = Eyes,		
+        BodyLocation = LeftEye,		
+        BodyLocation = RightEye,		
+        BodyLocation = Hands,		
+        BodyLocation = Scarf,		
+        BodyLocation = Underwear,		
+        BodyLocation = MakeUp_FullFace,		
+        BodyLocation = MakeUp_Eyes,		
+        BodyLocation = MakeUp_EyesShadow,		
+        BodyLocation = MakeUp_Lips,		
+        BodyLocation = Belt,		
+        BodyLocation = BeltExtra,		
+        BodyLocation = AmmoStrap,		
+        BodyLocation = Tail,		
+        BodyLocation = Legs1,		
+        BodyLocation = Pants,		
+        BodyLocation = Skirt,		
+        BodyLocation = ShortSleeveShirt,		
+        BodyLocation = Shirt,		
+        BodyLocation = Tshirt,		
+        BodyLocation = TankTop,		
+        BodyLocation = Socks,		
+        BodyLocation = UnderwearInner,		
+        BodyLocation = Shoes,		
+        BodyLocation = Torso1Legs1,		
+        BodyLocation = BathRobe,		
+        BodyLocation = FullSuit,		
+        BodyLocation = FullSuitHead,		
+        BodyLocation = Dress,		
+        BodyLocation = UnderwearTop,		
+        BodyLocation = UnderwearBottom,		
+        BodyLocation = UnderwearExtra1,		
+        BodyLocation = UnderwearExtra2,		
+        BodyLocation = ZedDmg,		
+        BodyLocation = Bandage,		
+        BodyLocation = Wound,		
+
+]]--
+
+    -- head items
+    local category = {};
+    category["displayRow"] = 0;
+    category["FullHelmet"] = true;
+    category["MaskFull"] = true;
+    category["FullHat"] = true;
+    category["MaskEyes"] = true;
+    category["Hat"] = true;
+    category["Mask"] = true;
+    category["Eyes"] = true;
+    category["LeftEye"] = true;
+    category["RightEye"] = true;
+    clothingCategories["HEAD"] = category;
+
+    --torso category
+    category = {};
+    category["displayRow"] = 1;
+    category["Jacket"] = true;
+    category["FullTop"] = true;
+    category["JacketHat"] = true;
+    category["Sweater"] = true;
+    category["TorsoExtra"] = true;
+    category["SweaterHat"] = true;
+    category["ShortSleeveShirt"] = true;
+    category["Shirt"] = true;
+    category["Tshirt"] = true;
+    category["TankTop"] = true;
+    category["Torso1Legs1"] = true;
+    category["BathRobe"] = true;
+    category["FullSuit"] = true;
+    category["FullSuitHead"] = true;
+    category["Dress"] = true;
+    category["Scarf"] = true;
+    clothingCategories["BODY"] = category;
+
+    --legs category
+    category = {};
+    category["displayRow"] = 3;
+    category["Legs1"] = true;
+    category["Pants"] = true;
+    category["Skirt"] = true;
+    clothingCategories["LEGS"] = category;
+
+    -- feet category
+    category = {};
+    category["displayRow"] = 4;
+    category["Shoes"] = true;
+    category["Socks"] = true;
+    clothingCategories["FEET"] = category;
+
+    -- underwear
+    category = {};
+    category["displayRow"] = 2;
+    category["Underwear"] = true;
+    category["UnderwearInner"] = true;
+    category["UnderwearTop"] = true;
+    category["UnderwearBottom"] = true;
+    category["UnderwearExtra1"] = true;
+    category["UnderwearExtra2"] = true;
+    clothingCategories["UNDIES"] = category;
+
+    --accessories
+    category = {};
+    category["displayRow"] = 5;
+    category["Belt"] = true;
+    category["Hands"] = true;
+    category["BeltExtra"] = true;
+    category["AmmoStrap"] = true;
+    category["FannyPackFront"] = true;
+    category["FannyPackBack"] = true;
+    category["RightWrist"] = true;
+    category["LeftWrist"] = true;
+    category["Tail"] = true;
+    clothingCategories["ACC"] = category;
+
+    --jewels
+    category = {};
+    category["displayRow"] = 6;
+    category["Necklace"] = true;
+    category["Necklace_Long"] = true;
+    category["Neck"] = true;
+    category["Ears"] = true;
+    category["Nose"] = true;
+    category["EarTop"] = true;
+    category["Right_MiddleFinger"] = true;
+    category["Left_MiddleFinger"] = true;
+    category["Right_RingFinger"] = true;
+    category["Left_RingFinger"] = true;
+    category["BellyButton"] = true;
+    clothingCategories["TRINKET"] = category;
+
+end
+
+
+function myClothingUI:update()
+    
+    -- return if window not initialized
+    if instance == nil then 
+        return 
+    end
+
+    if not instance:getIsVisible() then
+        return
+    end
+
+    --get currently equipped items.
+    local playerObj = getPlayer();
+    local playerInv = playerObj:getInventory();
+    local playerItems =  playerInv:getItems();
+    
+    local currentlyEquipped = {};
+    currentlyEquipped.items = {};
+    currentlyEquipped.count = 0;
+    
+    -- find equipped clothing items
+    for i=0, playerItems:size()-1 do
+        local loopitem = playerItems:get(i);
+        if loopitem:isEquipped() and loopitem:IsClothing() then
+            currentlyEquipped.items[loopitem:getBodyLocation()] = loopitem; --body location is a key.
+            currentlyEquipped.count = currentlyEquipped.count + 1;
+        end
+    end
+
+    -- you are naked
+    if currentlyEquipped.count == 0 then
+        myClothingUI:removeItemButtons();
+        return;
+    end;
+
+
+    if instance.itemCount then
+         -- if different number of items detected, redraw
+        if instance.itemCount ~= currentlyEquipped.count then
+            myClothingUI:drawButtonsFromItems(currentlyEquipped.items,currentlyEquipped.count);
+            return;
+        end;
+
+        -- check if there are differences in equipped and shown items
+        local myInstance = instance.displayedSlots;
+        for k, v in pairs(currentlyEquipped.items) do
+             -- category not found, redraw
+             if (not instance.displayedSlots[k]) then
+                    myClothingUI:drawButtonsFromItems(currentlyEquipped.items,currentlyEquipped.count);
+                return;
+             end
+        end
+    end
+
+end
+
+function myClothingUI:getClothingItemCategory(itemBodyLocation)
+
+    local itemCategory = nil;
+
+    -- find assigned category to this body location
+    for k, v in pairs(clothingCategories) do
+        if v[itemBodyLocation] then
+            itemCategory = k;
+            break;
+        end;
+    end
+
+    return itemCategory;
+
+end
+
+function myClothingUI:drawButtonsFromItems(itemSet,itemCount)
+    print("/////////redrawing//////////");
+    -- create mySlotIstance for each clothing item category
+    myClothingUI:removeItemButtons();
+    instance.displayedSlots = {};
+    instance.itemCount = itemCount;
+    local idx = 0;
+
+    -- init category indexes - store position of displayed button for this category
+    local categoryIdx = {};
+    for k, v in pairs(clothingCategories) do
+       categoryIdx[k] = 1;
+    end
+
+    -- handle drawing of item categories
+    local itemBodyLocation = {};
+
+    for k, v in pairs(itemSet) do
+
+        itemBodyLocation = v:getBodyLocation();
+
+        -- decide master category for this item's location
+        local itemCategory = myClothingUI:getClothingItemCategory(itemBodyLocation);
+
+        print("drawing "..v:getDisplayName().." on slot "..itemCategory);
+        -- choose where to draw based on category.
+        if itemCategory ~= nil then
+
+            local category = clothingCategories[itemCategory];
+            local categoryRow = category["displayRow"];
+            print(categoryRow);
+
+            instance.displayedSlots[k] =  myClothingSlot:new((buttonColumnSpacing * categoryIdx[itemCategory]) + buttonHorizontalOffset, (categoryRow*buttonRowSpacing)+buttonVerticalOffset, buttonWidth, buttonHeight, itemBodyLocation);
+            instance.displayedSlots[k].item = v;
+            instance:addChild(instance.displayedSlots[k]);
+            categoryIdx[itemCategory] = categoryIdx[itemCategory] + 1;
+        else    -- else category unknown
+            instance.displayedSlots[k] =  myClothingSlot:new(20, 20, 50, 50, itemBodyLocation);
+            instance.displayedSlots[k].item = v;      
+        end
+    end
+
+end
+
+-- removes all instance.displayedSlots children
+function myClothingUI:removeItemButtons()
+
+    if not instance.displayedSlots then
+        return;
+    end
+
+    for k, v in pairs(instance.displayedSlots) do
+        instance:removeChild(instance.displayedSlots[k]);
+    end
+
+end
+
+
+function myClothingUI:handleToggle()
+
+    print(self:getIsVisible());
+    if self:getIsVisible() then
+        self:setVisible(false);
+    else
+        self:setVisible(true);
+    end
+
+end
+
+
+
+
+function myClothingUI.onMainButtonClicked()
+
+    if instance == nil then
+        print("window not initialized - create new window")
+        instance = myClothingUI:new(300,300,8*buttonWidth,8*buttonRowSpacing);
+        instance:addToUIManager();
+        instance.itemCount = 0;
+        instance:setTitle("Equipped items");
+    else
+        print("window exists - handle toggling")
+        instance:handleToggle();
+        instance.itemCount = 0; -- setting to zero forces update if player wears any clothing
+    end
+
+end
+
+function myClothingUI:createMainButton()
+    -- place button on the main screen
+    print(">>>>>>>>>>>>>>>>>>>PLACING TOGLE BUTTON");
+    toggleButton = ISPanel:new(500, 500, 50, 50);
+    toggleButton.moveWithMouse = true;
+    toggleButton.mybutton = ISButton:new(10, 10, 30, 30,"INV",toggleButton.mybutton, myClothingUI.onMainButtonClicked );
+    toggleButton:addChild(toggleButton.mybutton);
+    toggleButton:addToUIManager();
+
+end
+
+
+Events.OnGameStart.Add(myClothingUI.createMainButton);
