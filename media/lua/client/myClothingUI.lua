@@ -298,19 +298,18 @@ function myClothingUI:drawButtonsFromItems(itemSet,itemCount)
         -- decide master category for this item's location
         local itemCategory = myClothingUI:getClothingItemCategory(itemBodyLocation);
 
-        print("drawing "..v:getDisplayName().." on slot "..itemCategory);
         -- choose where to draw based on category.
         if itemCategory ~= nil then
-
+            print("drawing "..v:getDisplayName().." on slot "..itemCategory);
             local category = clothingCategories[itemCategory];
             local categoryRow = category["displayRow"];
-            print(categoryRow);
 
             instance.displayedSlots[k] =  myClothingSlot:new((buttonColumnSpacing * categoryIdx[itemCategory]) + buttonHorizontalOffset, (categoryRow*buttonRowSpacing)+buttonVerticalOffset, buttonWidth, buttonHeight, itemBodyLocation);
             instance.displayedSlots[k].item = v;
             instance:addChild(instance.displayedSlots[k]);
             categoryIdx[itemCategory] = categoryIdx[itemCategory] + 1;
         else    -- else category unknown
+            print("category unknown, item: "..v:getDisplayName())
             instance.displayedSlots[k] =  myClothingSlot:new(20, 20, 50, 50, itemBodyLocation);
             instance.displayedSlots[k].item = v;      
         end
