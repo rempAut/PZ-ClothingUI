@@ -1,5 +1,6 @@
-name=Clothing items grid view
+name=PZ-ClothingUI - Clothing items grid view
 poster=workshopdesc.png
 id=myclothinguimod
 description=This mode provides alternative UI for equipped clothing items.
-url=http://theindiestone.com/forums/index.php/topic/2011-how-to-use-the-upcoming-modloader/
+description=see https://github.com/rempAut/PZ-ClothingUI
+url=https://github.com/rempAut/PZ-ClothingUI
