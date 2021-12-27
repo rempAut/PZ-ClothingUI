@@ -361,15 +361,38 @@ function myClothingUI.onMainButtonClicked()
 
 end
 
+function myClothingUI:resizeUiElements()
+
+    print("resizing UI elements to fit resolution size");
+
+    local scaleFactor = 1;
+	local xres = getCore():getScreenWidth()
+	local yres = getCore():getScreenHeight()
+    local defaultXres = 1827.0;
+    local defaultYres = 1057.0;
+    scaleFactor = xres / defaultXres;
+    -- never downscale
+    if scaleFactor < 1.0 then
+        scaleFactor = 1;
+    end
+    
+    buttonHeight = 40*scaleFactor;
+    buttonWidth = 40*scaleFactor;
+    buttonRowSpacing = (60*scaleFactor);  -- spacing between rows
+    buttonColumnSpacing = (45*scaleFactor);
+    buttonVerticalOffset = 40*scaleFactor; --offset from the top of main window
+    buttonHorizontalOffset = (30*scaleFactor)+buttonWidth; --offset from the category button
+
+end
+
 function myClothingUI:createMainButton()
+    myClothingUI:resizeUiElements();
     -- place button on the main screen
-    print(">>>>>>>>>>>>>>>>>>>PLACING TOGLE BUTTON");
     toggleButton = ISPanel:new(500, 500, 50, 50);
     toggleButton.moveWithMouse = true;
     toggleButton.mybutton = ISButton:new(10, 10, 30, 30,"INV",toggleButton.mybutton, myClothingUI.onMainButtonClicked );
     toggleButton:addChild(toggleButton.mybutton);
     toggleButton:addToUIManager();
-
 end
 
 

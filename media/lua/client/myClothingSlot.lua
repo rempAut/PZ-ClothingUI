@@ -128,6 +128,7 @@ function myClothingSlot:setClothingPicture(item)
         self:setImage(item:getTexture());
         local tint = item:getVisual():getTint(item:getClothingItem());
         self:setTextureRGBA(tint:getRedFloat(), tint:getGreenFloat(), tint:getBlueFloat(), 1.0);
+        self:forceImageSize(self.width*0.8, self.height*0.8);
     end
 end
 
