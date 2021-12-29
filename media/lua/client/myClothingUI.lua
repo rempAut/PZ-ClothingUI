@@ -249,8 +249,8 @@ function myClothingUI:update()
         -- check if there are differences in equipped and shown items
         local myInstance = instance.displayedSlots;
         for k, v in pairs(currentlyEquipped.items) do
-             -- category not found, redraw
-             if (not instance.displayedSlots[k]) then
+             -- category not found or item has changed
+             if (not instance.displayedSlots[k]) or (instance.displayedSlots[k].item ~= v ) then
                     myClothingUI:drawButtonsFromItems(currentlyEquipped.items,currentlyEquipped.count);
                 return;
              end

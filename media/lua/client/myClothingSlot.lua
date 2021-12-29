@@ -37,7 +37,9 @@ function myClothingSlot:new (x, y, width, height, slotTitle, slotItem )
     o.slotItem = slotItem;
     o.slotTitle = slotTitle;
     o.activeItemTooltip = ISToolTipInv:new(slotItem);
+    o.activeItemTooltip:setOwner(o);
     o.activeItemTooltip:setVisible(false);
+    o.activeItemTooltip:addToUIManager();
     o:setClothingPicture(slotItem);
     return o
 end
@@ -45,15 +47,14 @@ end
 -- re-render and handle mouse event on the button
 function myClothingSlot:render()
 
-    local equippedItem = self.slotItem;
     ISButton.render(self);
-    self:setClothingPicture(equippedItem);
+    self:setClothingPicture(self.slotItem);
 
     --draw name of the slot
     local textWidth = getTextManager():MeasureStringX(UIFont.Small, self.slotTitle) + 10;
     self:drawTextRight(self.slotTitle, textWidth - 8 , -textMargin , 1, 1, 1, 1, UIFont.Small);
 
-    if equippedItem then
+    if self.slotItem then
         -- if item equip, handle item tooltip
         if self.mouseOver then
             self.activeItemTooltip:bringToTop();
@@ -76,6 +77,13 @@ function myClothingSlot:removeItemTooltip()
         self.activeItemTooltip:setVisible(false);
     end
 
+end
+
+function myClothingSlot:close()
+    ISButton.close(self);
+    self.activeItemTooltip:setVisible(false);
+    self.activeItemTooltip:removeFromUIManager();
+    
 end
 
 -- set item picture on the button
