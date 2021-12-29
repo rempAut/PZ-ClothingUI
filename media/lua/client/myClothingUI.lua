@@ -371,7 +371,7 @@ function myClothingUI:resizeUiElements()
 	local yres = getCore():getScreenHeight()
     local defaultXres = 1827.0;
     local defaultYres = 1057.0;
-    scaleFactor = xres / defaultXres;
+    scaleFactor = yres / defaultYres;
     -- never downscale
     if scaleFactor < 1.0 then
         scaleFactor = 1;
