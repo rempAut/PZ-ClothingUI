@@ -1,6 +1,7 @@
 require "ISUI/ISCollapsableWindow"
 require "ISUI/ISPanelJoypad"
 require "ISUI/ISLabel"
+json = require "libs/json"
 
 local FONT_HGT_SMALL = getTextManager():getFontHeight(UIFont.Small)
 local FONT_HGT_MEDIUM = getTextManager():getFontHeight(UIFont.Medium)
@@ -385,15 +386,107 @@ function myClothingUI:resizeUiElements()
 
 end
 
-function myClothingUI:createMainButton()
+function myClothingUI:onGameStart()
+
+    -- get current resolution and adjust button sizes
     myClothingUI:resizeUiElements();
-    -- place button on the main screen
-    toggleButton = ISPanel:new(500, 500, 50, 50);
+
+    -- load saved parameters
+    local loadedParams = myClothingUI:loadSavedParameters();
+    loadedParams = myClothingUI:checkParameters(loadedParams);
+
+    -- place toggle button on the main screen
+    toggleButton = ISPanel:new(loadedParams["toggleButton"].x, loadedParams["toggleButton"].y, 50, 50);
     toggleButton.moveWithMouse = true;
     toggleButton.mybutton = ISButton:new(10, 10, 30, 30,"INV",toggleButton.mybutton, myClothingUI.onMainButtonClicked );
     toggleButton:addChild(toggleButton.mybutton);
     toggleButton:addToUIManager();
+
+    print("Create new window on game start")
+    instance = myClothingUI:new(loadedParams["instance"].x, loadedParams["instance"].y,8*buttonWidth,8*buttonRowSpacing);
+    instance:addToUIManager();
+    instance.itemCount = 0;
+    instance:setTitle("Equipped items");
+    instance:setVisible(false);
+end
+
+-- make sure parameter object is always valid
+function myClothingUI:checkParameters(paramIn)
+
+    local xres = getCore():getScreenWidth()
+	local yres = getCore():getScreenHeight()
+
+    -- check if we are not rendering outside of game window
+    if paramIn["toggleButton"].x > xres then
+        paramIn["toggleButton"].x = xres*0.5;
+    end
+    if paramIn["instance"].x > xres then
+        paramIn["instance"].x = xres*0.5;
+    end
+
+    if paramIn["toggleButton"].y > yres then
+        paramIn["toggleButton"].y = yres*0.5;
+    end
+    if paramIn["instance"].y > yres then
+        paramIn["instance"].y = yres*0.5;
+    end
+
+    return paramIn;
+
+
 end
 
 
-Events.OnGameStart.Add(myClothingUI.createMainButton);
+
+function myClothingUI:loadSavedParameters()
+
+    local reader = getFileReader("clothingui.ini", false);
+    local parameters = {};
+
+    -- file found parse the json
+    if reader then
+        print("clothingUI - reading parameters from config file");
+        local line = reader:readLine();
+        reader:close();
+        parameters = json.parse(line);
+
+    else
+        -- no file found, load default parameters
+        print("clothingUI - no file found, load default parameters");
+        parameters["toggleButton"] = {x = 500, y = 500};
+        parameters["instance"] = {x = 300, y = 300};
+
+    end
+
+    return parameters
+
+end
+
+
+-- returns table with parameters
+-- returns "none" if no value found.
+function myClothingUI:createSavedParameters()
+    print("myClothingUI - saving button locations");
+    local parameters = {};
+    parameters["toggleButton"] = {x = toggleButton.x, y = toggleButton.y};
+    parameters["instance"] = {x = instance.x, y = instance.y};
+    return parameters
+
+end
+
+function myClothingUI:onSave()
+
+    -- get file
+    print("writing button location parameters to file");
+    local writer = getFileWriter("clothingui.ini", true, false)
+
+    -- write button locations parameters
+    local savedParameters = myClothingUI:createSavedParameters();
+    writer:write(json.stringify(savedParameters));
+    writer:close();
+
+end
+
+
+Events.OnSave.Add(myClothingUI.onSave);
+Events.OnGameStart.Add(myClothingUI.onGameStart);
