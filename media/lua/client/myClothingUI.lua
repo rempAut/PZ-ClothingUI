@@ -443,19 +443,31 @@ function myClothingUI:loadSavedParameters()
     local reader = getFileReader("clothingui.ini", false);
     local parameters = {};
 
+    local loadDefaults = false;
+
     -- file found parse the json
     if reader then
         print("clothingUI - reading parameters from config file");
         local line = reader:readLine();
         reader:close();
-        parameters = json.parse(line);
-
-    else
+        -- we need a protection against empty file
+        if not line or line == "" then
+            parameters = json.parse(line);
+        else
+            print("clothingUI - empty parameters files");
+            loadDefaults = true;
+        end
+        
+    else 
         -- no file found, load default parameters
-        print("clothingUI - no file found, load default parameters");
+        loadDefaults = true;
+        print("clothingUI - no parameters file found");
+    end
+
+    if loadDefaults == true then
+        print("clothingUI - loading default parameters");
         parameters["toggleButton"] = {x = 500, y = 500};
         parameters["instance"] = {x = 300, y = 300};
-
     end
 
     return parameters
