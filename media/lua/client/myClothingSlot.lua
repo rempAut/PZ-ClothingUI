@@ -16,7 +16,7 @@ local function predicateNotBroken(item)
     return not item:isBroken()
 end
 
-function myClothingSlot:new (x, y, width, height, slotTitle )
+function myClothingSlot:new (x, y, width, height, slotTitle, slotItem )
     local o = {}
     o = ISButton:new(x, y, width, height);
     setmetatable(o, self)
@@ -34,18 +34,18 @@ function myClothingSlot:new (x, y, width, height, slotTitle )
 
     o.backgroundColorMouseOver.a = 0.8;
 
-    o.items = items;
+    o.slotItem = slotItem;
     o.slotTitle = slotTitle;
-    o.activeItemTooltip = nil;
-    local equippedItem = o:getEquippedClothingItem();
-    o:setClothingPicture(equippedItem);
+    o.activeItemTooltip = ISToolTipInv:new(slotItem);
+    o.activeItemTooltip:setVisible(false);
+    o:setClothingPicture(slotItem);
     return o
 end
 
 -- re-render and handle mouse event on the button
 function myClothingSlot:render()
 
-    local equippedItem = self:getEquippedClothingItem();
+    local equippedItem = self.slotItem;
     ISButton.render(self);
     self:setClothingPicture(equippedItem);
 
@@ -56,34 +56,15 @@ function myClothingSlot:render()
     if equippedItem then
         -- if item equip, handle item tooltip
         if self.mouseOver then
-            if equippedItem then 
-                self:showItemTooltip(equippedItem);
-            end
+            self.activeItemTooltip:bringToTop();
+            self.activeItemTooltip:setVisible(true);
         else
-            self:removeItemTooltip();
+            self.activeItemTooltip:setVisible(false);
         end;
     else
-        -- else no item equipped, remove old item tooltip
+        -- else no item equipped, remove item tooltip
         self:removeItemTooltip();
     end
-
-end
-
--- fctn called in render
-function myClothingSlot:showItemTooltip(item)
-
-    if self.activeItemTooltip then
-        self.activeItemTooltip:setItem(item)
-        self.activeItemTooltip:setVisible(true)
-        self.activeItemTooltip:addToUIManager()
-        self.activeItemTooltip:bringToTop()
-    else
-        self.activeItemTooltip = ISToolTipInv:new(item);
-        self.activeItemTooltip:initialise();
-        self.activeItemTooltip:addToUIManager();
-        self.activeItemTooltip:setVisible(true);
-    end
-
 
 end
 
@@ -96,27 +77,6 @@ function myClothingSlot:removeItemTooltip()
     end
 
 end
-
-
--- return nil or equipped item from inventory of this category
-function myClothingSlot:getEquippedClothingItem()
-
-    local playerObj = getPlayer();
-    local playerInv = playerObj:getInventory();
-    local playerNumber = playerObj:getPlayerNum();
-    local equippedItem = nil;
-
-    -- find equipped clothing item of this category
-    for i=0, playerInv:getItems():size()-1 do
-        local loopitem = playerInv:getItems():get(i);
-        if loopitem:isEquipped() and (loopitem:getBodyLocation() == self.slotTitle ) then
-            equippedItem = loopitem;   
-        end
-    end
-    return equippedItem;
-
-end
-
 
 -- set item picture on the button
 function myClothingSlot:setClothingPicture(item)
@@ -148,11 +108,9 @@ function myClothingSlot:doMenu(x,y)
 	local context = ISContextMenu.get(getPlayer():getPlayerNum(), getMouseX(), getMouseY());
 	local found = false;
 
-    equippedItem = self:getEquippedClothingItem();
-
     -- first check for remove
-	if equippedItem ~= nil then
-		ISInventoryPaneContextMenu.createMenu(0, true, {equippedItem}, self:getAbsoluteX() + x + 30, self:getAbsoluteY() + y)
+	if self.slotItem ~= nil then
+		ISInventoryPaneContextMenu.createMenu(0, true, {self.slotItem}, self:getAbsoluteX() + x + 30, self:getAbsoluteY() + y)
 		found = true;
 	end
 
@@ -188,10 +146,8 @@ end
 
 function myClothingSlot:onMouseDoubleClick(x,y)
 
-    equippedItem = self:getEquippedClothingItem();
-
-    if(equippedItem) then
-        ISInventoryPaneContextMenu.unequipItem( equippedItem , getPlayer():getPlayerNum());
+    if(self.slotItem) then
+        ISInventoryPaneContextMenu.unequipItem( self.slotItem , getPlayer():getPlayerNum());
     else
     end
 

@@ -292,27 +292,27 @@ function myClothingUI:drawButtonsFromItems(itemSet,itemCount)
     -- handle drawing of item categories
     local itemBodyLocation = {};
 
-    for k, v in pairs(itemSet) do
+    for k, item in pairs(itemSet) do
 
-        itemBodyLocation = v:getBodyLocation();
+        itemBodyLocation = item:getBodyLocation();
 
         -- decide master category for this item's location
         local itemCategory = myClothingUI:getClothingItemCategory(itemBodyLocation);
 
         -- choose where to draw based on category.
         if itemCategory ~= nil then
-            print("drawing "..v:getDisplayName().." on slot "..itemCategory);
+            print("drawing "..item:getDisplayName().." on slot "..itemCategory);
             local category = clothingCategories[itemCategory];
             local categoryRow = category["displayRow"];
 
-            instance.displayedSlots[k] =  myClothingSlot:new((buttonColumnSpacing * categoryIdx[itemCategory]) + buttonHorizontalOffset, (categoryRow*buttonRowSpacing)+buttonVerticalOffset, buttonWidth, buttonHeight, itemBodyLocation);
-            instance.displayedSlots[k].item = v;
+            instance.displayedSlots[k] =  myClothingSlot:new((buttonColumnSpacing * categoryIdx[itemCategory]) + buttonHorizontalOffset, (categoryRow*buttonRowSpacing)+buttonVerticalOffset, buttonWidth, buttonHeight, itemBodyLocation, item);
+            instance.displayedSlots[k].item = item;
             instance:addChild(instance.displayedSlots[k]);
             categoryIdx[itemCategory] = categoryIdx[itemCategory] + 1;
         else    -- else category unknown
-            print("category unknown, item: "..v:getDisplayName())
-            instance.displayedSlots[k] =  myClothingSlot:new(20, 20, 50, 50, itemBodyLocation);
-            instance.displayedSlots[k].item = v;      
+            print("category unknown, item: "..item:getDisplayName())
+            instance.displayedSlots[k] =  myClothingSlot:new(20, 20, 50, 50, itemBodyLocation, item);
+            instance.displayedSlots[k].item = item;      
         end
     end
 
