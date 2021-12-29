@@ -1,0 +1,16 @@
+{
+    "Lua.diagnostics.globals": [
+        "Events",
+        "getFileReader",
+        "getCore",
+        "ISPanel",
+        "ISButton",
+        "ISCollapsableWindow",
+        "UIFont",
+        "UIManager",
+        "getPlayer",
+        "ISContextMenu",
+        "ISInventoryPaneContextMenu",
+        "getTextManager"
+    ]
+}
