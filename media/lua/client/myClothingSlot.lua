@@ -33,7 +33,7 @@ function myClothingSlot:new (x, y, width, height, slotTitle, slotItem )
     o.backgroundColor.a = 0.3;
 
     o.backgroundColorMouseOver.a = 0.8;
-
+    o.contextMenu = nil;
     o.slotItem = slotItem;
     o.slotTitle = slotTitle;
     o.activeItemTooltip = ISToolTipInv:new(slotItem);
@@ -55,8 +55,8 @@ function myClothingSlot:render()
     self:drawTextRight(self.slotTitle, textWidth - 8 , -textMargin , 1, 1, 1, 1, UIFont.Small);
 
     if self.slotItem then
-        -- if item equip, handle item tooltip
-        if self.mouseOver then
+        -- if item equipped, handle item tooltip
+        if self.mouseOver and (self.contextMenu == nil or not self.contextMenu.visibleCheck ) then -- show tooltip when mouse over or context menu is not visible
             self.activeItemTooltip:bringToTop();
             self.activeItemTooltip:setVisible(true);
         else
@@ -113,7 +113,10 @@ function myClothingSlot:doMenu(x,y)
 		return;
 	end
 
-	local context = ISContextMenu.get(getPlayer():getPlayerNum(), getMouseX(), getMouseY());
+    local playerObj = getPlayer();
+    local playerInv = playerObj:getInventory();
+
+	self.contextMenu = ISContextMenu.get(playerObj:getPlayerNum(), getMouseX(), getMouseY());
 	local found = false;
 
     -- first check for remove
@@ -124,22 +127,15 @@ function myClothingSlot:doMenu(x,y)
 
     local subMenuAttach;
 
-    local replacements = {};
-
-    -- seach tru our inventory
-    local playerObj = getPlayer();
-    local playerInv = playerObj:getInventory();
-
     -- find a clothing item of this category
     for i=0, playerInv:getItems():size()-1 do
         local loopitem = playerInv:getItems():get(i);
         if (loopitem:getBodyLocation() == self.slotTitle ) and not ( loopitem:isEquipped()) then
-            table.insert(replacements, loopitem);
 
             if not subMenuAttach then
-                local subOption = context:addOptionOnTop(getText("EQUIP"), nil);
-                subMenuAttach = context:getNew(context);
-                context:addSubMenu(subOption, subMenuAttach);
+                local subOption = self.contextMenu:addOptionOnTop(getText("EQUIP"), nil);
+                subMenuAttach = self.contextMenu:getNew(self.contextMenu);
+                self.contextMenu:addSubMenu(subOption, subMenuAttach);
             end
             subMenuAttach:addOption(loopitem:getDisplayName(), self, self.equipItem, loopitem);
             found = true;
