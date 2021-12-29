@@ -436,8 +436,6 @@ function myClothingUI:checkParameters(paramIn)
 
 end
 
-
-
 function myClothingUI:loadSavedParameters()
 
     local reader = getFileReader("clothingui.ini", false);
@@ -450,15 +448,16 @@ function myClothingUI:loadSavedParameters()
         print("clothingUI - reading parameters from config file");
         local line = reader:readLine();
         reader:close();
-        -- we need a protection against empty file
-        if not line or line == "" then
-            parameters = json.parse(line);
-        else
-            print("clothingUI - empty parameters files");
+
+        -- we need a protection against empty file or other malformed files
+        if not line or line == nil or line == "" then
+            print("clothingUI - invalid parameters files");
             loadDefaults = true;
+        else
+            parameters = json.parse(line);
         end
-        
-    else 
+
+    else
         -- no file found, load default parameters
         loadDefaults = true;
         print("clothingUI - no parameters file found");
@@ -466,8 +465,14 @@ function myClothingUI:loadSavedParameters()
 
     if loadDefaults == true then
         print("clothingUI - loading default parameters");
-        parameters["toggleButton"] = {x = 500, y = 500};
-        parameters["instance"] = {x = 300, y = 300};
+        parameters["toggleButton"] = {
+            x = 500,
+            y = 500
+        };
+        parameters["instance"] = {
+            x = 300,
+            y = 300
+        };
     end
 
     return parameters
@@ -488,14 +493,18 @@ end
 
 function myClothingUI:onSave()
 
-    -- get file
-    print("writing button location parameters to file");
-    local writer = getFileWriter("clothingui.ini", true, false)
+    -- Check if the game window instance is created, if not it means that 
+    -- save was not triggered from the loaded game (new game route).
+    if instance then
+        -- get file
+        print("writing button location parameters to file");
+        local writer = getFileWriter("clothingui.ini", true, false)
 
-    -- write button locations parameters
-    local savedParameters = myClothingUI:createSavedParameters();
-    writer:write(json.stringify(savedParameters));
-    writer:close();
+        -- write button locations parameters
+        local savedParameters = myClothingUI:createSavedParameters();
+        writer:write(json.stringify(savedParameters));
+        writer:close();
+    end
 
 end
 
