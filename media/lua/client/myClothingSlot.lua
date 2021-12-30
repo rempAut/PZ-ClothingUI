@@ -139,7 +139,8 @@ function myClothingSlot:doMenu(x,y)
                 subMenuAttach = self.contextMenu:getNew(self.contextMenu);
                 self.contextMenu:addSubMenu(subOption, subMenuAttach);
             end
-            subMenuAttach:addOption(loopitem:getDisplayName(), self, self.equipItem, loopitem);
+            local option = subMenuAttach:addOption(loopitem:getDisplayName(), self, self.equipItem, loopitem);
+            ISInventoryPaneContextMenu.doWearClothingTooltip(playerObj, loopitem, loopitem, option);
             found = true;
 
         end
