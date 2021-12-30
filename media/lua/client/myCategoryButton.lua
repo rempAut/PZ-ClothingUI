@@ -18,6 +18,7 @@ function myCategoryButton:new(x, y, width, height, category, locations)
     self.__index = self
     o.category = category
     o.locations = locations;
+    o.contextMenu = nil;
     return o
 end
 
@@ -25,14 +26,14 @@ function myCategoryButton:onRightMouseUp(x, y)
 
     -- create equip menu from available items
     if UIManager.getSpeedControls():getCurrentGameSpeed() == 0 then
-		return;
-	end
+        return;
+    end
 
     local player = getPlayer();
     local playerNum = player:getPlayerNum();
     local playerInv = player:getInventory();
     local playerItems = playerInv:getItems();
-    local context = ISContextMenu.get(playerNum, getMouseX(), getMouseY());
+    self.contextMenu = ISContextMenu.get(playerNum, getMouseX(), getMouseY());
 
     local bfound = false;
 
@@ -41,15 +42,16 @@ function myCategoryButton:onRightMouseUp(x, y)
         local loopitem = playerItems:get(i);
         -- check if item is part of (body)locations of this category and not currently equipped
         if (self.locations[loopitem:getBodyLocation()]) and not loopitem:isEquipped() then
-            local displayString = loopitem:getDisplayName() .. "  [" .. utils.getBodySlotText(loopitem:getBodyLocation()) ..
-                                    "]";
-            context:addOption(displayString, self, self.equipItem, loopitem);
+            local displayString = loopitem:getDisplayName() .. "  [" ..
+                                      utils.getBodySlotText(loopitem:getBodyLocation()) .. "]";
+            local option = self.contextMenu:addOption(displayString, self, self.equipItem, loopitem);
+            ISInventoryPaneContextMenu.doWearClothingTooltip(player, loopitem, loopitem, option);
             bfound = true;
         end
     end
 
     if not bfound then
-        local option = context:addOption(getText("UI_CUI_no_items_avaliable"));
+        local option = self.contextMenu:addOption(getText("UI_CUI_no_items_avaliable"));
     end
 
 end
@@ -57,6 +59,6 @@ end
 -- equip item action when clicked in the menu
 function myCategoryButton:equipItem(item)
 
-    ISInventoryPaneContextMenu.onWearItems({ item }, getPlayer():getPlayerNum())
+    ISInventoryPaneContextMenu.onWearItems({item}, getPlayer():getPlayerNum())
 
 end
