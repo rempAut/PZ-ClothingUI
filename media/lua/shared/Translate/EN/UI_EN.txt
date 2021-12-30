@@ -1,19 +1,19 @@
 UI_EN = {
-	UI_CUI_window_title = "Equipped items",
-	UI_CUI_no_items_avaliable = "No avaliable item in inventory",
-
-	-- Category Buttons
-	UI_CUI_Category_HEAD = "HEAD",
-	UI_CUI_Category_UNDIES = "UNDIES",
-	UI_CUI_Category_BODY = "BODY",
-	UI_CUI_Category_HANDS = "HANDS",			
-	UI_CUI_Category_LEGS = "LEGS",
-	UI_CUI_Category_FEET = "FEET",
-	UI_CUI_Category_ACC = "ACC",
-	UI_CUI_Category_TRINKET = "TRINKET",
-	
-	-- Body slots naming
-	UI_CUI_FannyPackFront = "Fanny F",
+    UI_CUI_window_title = "Equipped items",
+    UI_CUI_no_items_avaliable = "No avaliable item in inventory",
+ 
+    -- Category Buttons
+    UI_CUI_Category_HEAD = "HEAD",
+    UI_CUI_Category_UNDIES = "UNDIES",
+    UI_CUI_Category_BODY = "BODY",
+    UI_CUI_Category_HANDS = "HANDS",         
+    UI_CUI_Category_LEGS = "LEGS",
+    UI_CUI_Category_FEET = "FEET",
+    UI_CUI_Category_ACC = "ACC",
+    UI_CUI_Category_TRINKET = "TRINKET",
+   
+    -- Body slots naming
+    UI_CUI_FannyPackFront = "Fanny F",
     UI_CUI_FannyPackBack = "Fanny B",
     UI_CUI_Hat = "Hat",
     UI_CUI_Mask = "Mask",
