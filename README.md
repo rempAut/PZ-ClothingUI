@@ -37,3 +37,13 @@ This mod doesn't require any special settings and is setup as any other mod on m
 5. Translate the texts in the file. 
 
 In case you don't know how to work with GIT, please create a new [ISSUE](https://github.com/rempAut/PZ-ClothingUI/issues) / [thread on steam](https://steamcommunity.com/sharedfiles/filedetails/discussions/2695471997) with translated file and we can add that file to the project.
+
+## How to report issues
+1. start the game with -debug parameter
+2. When ingame, press F11 to open debug console.
+3. Make sure "General" is included in the log file
+![image](https://user-images.githubusercontent.com/80215310/147794177-a65f8d26-a3c9-412d-b7c6-3602b15e7745.png)
+4. Close the debug console and replicate your errors.
+5. Close the game
+6. Find the log in C:\Users\[username]\Zomboid\console.txt and upload it together with your issue
+
