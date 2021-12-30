@@ -8,10 +8,10 @@ local FONT_HGT_MEDIUM = getTextManager():getFontHeight(UIFont.Medium)
 local clothingCategories = {};
 local buttonHeight = 40;
 local buttonWidth = 40;
-local buttonRowSpacing = 60;  -- spacing between rows
+local buttonRowSpacing = 60; -- spacing between rows
 local buttonColumnSpacing = 45;
-local buttonVerticalOffset = 40; --offset from the top of main window
-local buttonHorizontalOffset = 30+buttonWidth; --offset from the category button
+local buttonVerticalOffset = 40; -- offset from the top of main window
+local buttonHorizontalOffset = 30 + buttonWidth; -- offset from the category button
 local toggleButton = {};
 
 myClothingUI = ISCollapsableWindow:derive("myClothingUI");
@@ -144,21 +144,6 @@ function myClothingUI:createClothingCategories()
     category["Scarf"] = true;
     clothingCategories["BODY"] = category;
 
-    --legs category
-    category = {};
-    category["displayRow"] = 3;
-    category["Legs1"] = true;
-    category["Pants"] = true;
-    category["Skirt"] = true;
-    clothingCategories["LEGS"] = category;
-
-    -- feet category
-    category = {};
-    category["displayRow"] = 4;
-    category["Shoes"] = true;
-    category["Socks"] = true;
-    clothingCategories["FEET"] = category;
-
     -- underwear
     category = {};
     category["displayRow"] = 2;
@@ -170,23 +155,44 @@ function myClothingUI:createClothingCategories()
     category["UnderwearExtra2"] = true;
     clothingCategories["UNDIES"] = category;
 
-    --accessories
+    -- hands category
+    category = {};
+    category["displayRow"] = 3;
+    category["Hands"] = true;
+    category["RightWrist"] = true;
+    category["LeftWrist"] = true;
+    clothingCategories["HANDS"] = category;
+    
+    --legs category
+    category = {};
+    category["displayRow"] = 4;
+    category["Legs1"] = true;
+    category["Pants"] = true;
+    category["Skirt"] = true;
+    clothingCategories["LEGS"] = category;
+
+    -- feet category
     category = {};
     category["displayRow"] = 5;
+    category["Shoes"] = true;
+    category["Socks"] = true;
+    clothingCategories["FEET"] = category;
+
+    --accessories
+    category = {};
+    category["displayRow"] = 6;
     category["Belt"] = true;
-    category["Hands"] = true;
+   
     category["BeltExtra"] = true;
     category["AmmoStrap"] = true;
     category["FannyPackFront"] = true;
     category["FannyPackBack"] = true;
-    category["RightWrist"] = true;
-    category["LeftWrist"] = true;
     category["Tail"] = true;
     clothingCategories["ACC"] = category;
 
     --jewels
     category = {};
-    category["displayRow"] = 6;
+    category["displayRow"] = 7;
     category["Necklace"] = true;
     category["Necklace_Long"] = true;
     category["Neck"] = true;
@@ -353,7 +359,7 @@ function myClothingUI.onMainButtonClicked()
         instance = myClothingUI:new(300,300,8*buttonWidth,8*buttonRowSpacing);
         instance:addToUIManager();
         instance.itemCount = 0;
-        instance:setTitle("Equipped items");
+        instance:setTitle(getText("UI_CUI_window_title"));
     else
         print("window exists - handle toggling")
         instance:handleToggle();
@@ -381,7 +387,7 @@ function myClothingUI:resizeUiElements()
     buttonWidth = 40*scaleFactor;
     buttonRowSpacing = (60*scaleFactor);  -- spacing between rows
     buttonColumnSpacing = (45*scaleFactor);
-    buttonVerticalOffset = 40*scaleFactor; --offset from the top of main window
+    buttonVerticalOffset = 30*scaleFactor; --offset from the top of main window
     buttonHorizontalOffset = (30*scaleFactor)+buttonWidth; --offset from the category button
 
 end
@@ -398,17 +404,19 @@ function myClothingUI:onGameStart()
     -- place toggle button on the main screen
     toggleButton = ISPanel:new(loadedParams["toggleButton"].x, loadedParams["toggleButton"].y, 50, 50);
     toggleButton.moveWithMouse = true;
-    toggleButton.mybutton = ISButton:new(10, 10, 30, 30,"INV",toggleButton.mybutton, myClothingUI.onMainButtonClicked );
+    toggleButton.mybutton = ISButton:new(10, 10, 30, 30, "INV", toggleButton.mybutton, myClothingUI.onMainButtonClicked);
     toggleButton:addChild(toggleButton.mybutton);
     toggleButton:addToUIManager();
 
     print("Create new window on game start")
-    instance = myClothingUI:new(loadedParams["instance"].x, loadedParams["instance"].y,8*buttonWidth,8*buttonRowSpacing);
+    instance = myClothingUI:new(loadedParams["instance"].x, loadedParams["instance"].y, 8 * buttonWidth,
+        9 * buttonRowSpacing);
     instance:addToUIManager();
     instance.itemCount = 0;
-    instance:setTitle("Equipped items");
+    instance:setTitle(getText("UI_CUI_window_title"));
     instance:setVisible(false);
 end
+
 
 -- make sure parameter object is always valid
 function myClothingUI:checkParameters(paramIn)

@@ -8,6 +8,8 @@ require "ISUI/ISLayoutManager"
 require "ISUI/ISToolTipInv"
 require "TimedActions/ISInventoryTransferAction"
 
+local utils = require "utils/utils"
+
 myClothingSlot = ISButton:derive("myClothingSlot");
 local textMargin = 15;
 
@@ -49,10 +51,10 @@ function myClothingSlot:render()
 
     ISButton.render(self);
     self:setClothingPicture(self.slotItem);
+    local slotName = utils.getBodySlotText(self.slotTitle);
 
-    --draw name of the slot
-    local textWidth = getTextManager():MeasureStringX(UIFont.Small, self.slotTitle) + 10;
-    self:drawTextRight(self.slotTitle, textWidth - 8 , -textMargin , 1, 1, 1, 1, UIFont.Small);
+    --draw name of the slot    
+    self:drawText(slotName, 0 , -textMargin , 1, 1, 1, 1);
 
     if self.slotItem then
         -- if item equipped, handle item tooltip
@@ -137,7 +139,8 @@ function myClothingSlot:doMenu(x,y)
                 subMenuAttach = self.contextMenu:getNew(self.contextMenu);
                 self.contextMenu:addSubMenu(subOption, subMenuAttach);
             end
-            subMenuAttach:addOption(loopitem:getDisplayName(), self, self.equipItem, loopitem);
+            local option = subMenuAttach:addOption(loopitem:getDisplayName(), self, self.equipItem, loopitem);
+            ISInventoryPaneContextMenu.doWearClothingTooltip(playerObj, loopitem, loopitem, option);
             found = true;
 
         end
