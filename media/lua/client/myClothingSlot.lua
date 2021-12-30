@@ -9,9 +9,9 @@ require "ISUI/ISToolTipInv"
 require "TimedActions/ISInventoryTransferAction"
 
 local utils = require "utils/utils"
+local config = require "config";
 
 myClothingSlot = ISButton:derive("myClothingSlot");
-local textMargin = 15;
 
 -- same function in ISInventoryPaneContextMenu
 local function predicateNotBroken(item)
@@ -51,10 +51,12 @@ function myClothingSlot:render()
 
     ISButton.render(self);
     self:setClothingPicture(self.slotItem);
-    local slotName = utils.getBodySlotText(self.slotTitle);
 
     --draw name of the slot    
-    self:drawText(slotName, 0 , -textMargin , 1, 1, 1, 1);
+    if config.display_slot_labels then
+        local slotName = utils.getBodySlotText(self.slotTitle);        
+        self:drawText(slotName, 0 , -tonumber(config.slot_label_margin), 1, 1, 1, 1);    
+    end
 
     if self.slotItem then
         -- if item equipped, handle item tooltip
