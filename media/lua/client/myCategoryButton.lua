@@ -1,4 +1,5 @@
 require "ISUI/ISButton"
+local utils = require "utils/utils"
 
 myCategoryButton = ISButton:derive("myCategoryButton");
 
@@ -7,9 +8,12 @@ local function predicateNotBroken(item)
     return not item:isBroken()
 end
 
-function myCategoryButton:new (x, y, width, height, category, locations )
+function myCategoryButton:new(x, y, width, height, category, locations)
     local o = {}
-    o = ISButton:new(x, y, width, height, category);
+
+    local nameOfCategory = utils.getCategoryButtonText(category);
+
+    o = ISButton:new(x, y, width, height, nameOfCategory);
     setmetatable(o, self)
     self.__index = self
     o.category = category
@@ -33,18 +37,19 @@ function myCategoryButton:onRightMouseUp(x, y)
     local bfound = false;
 
     -- browse all items in player's inventory
-    for i=0, playerItems:size()-1 do
+    for i = 0, playerItems:size() - 1 do
         local loopitem = playerItems:get(i);
         -- check if item is part of (body)locations of this category and not currently equipped
         if (self.locations[loopitem:getBodyLocation()]) and not loopitem:isEquipped() then
-            local displayString = loopitem:getDisplayName().."  ["..loopitem:getBodyLocation().."]";
+            local displayString = loopitem:getDisplayName() .. "  [" .. utils.getBodySlotText(loopitem:getBodyLocation()) ..
+                                    "]";
             context:addOption(displayString, self, self.equipItem, loopitem);
             bfound = true;
         end
     end
 
     if not bfound then
-        local option = context:addOption("No avaliable item in inventory");
+        local option = context:addOption(getText("UI_CUI_no_items_avaliable"));
     end
 
 end
