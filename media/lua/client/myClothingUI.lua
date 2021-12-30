@@ -455,6 +455,13 @@ function myClothingUI:loadSavedParameters()
             loadDefaults = true;
         else
             parameters = json.parse(line);
+            -- parsed OK but key doesnt exists
+            if not parameters["toggleButton"] or not parameters["instance"] then
+                loadDefaults = true;
+            -- both keys exists but one member is missing
+            elseif  not (parameters["toggleButton"].x and parameters["toggleButton"].y and parameters["instance"].x and parameters["instance"].y)    then
+                loadDefaults = true;
+            end;
         end
 
     else
@@ -485,8 +492,25 @@ end
 function myClothingUI:createSavedParameters()
     print("myClothingUI - saving button locations");
     local parameters = {};
-    parameters["toggleButton"] = {x = toggleButton.x, y = toggleButton.y};
-    parameters["instance"] = {x = instance.x, y = instance.y};
+
+    if toggleButton then
+        parameters["toggleButton"] = {x = toggleButton.x, y = toggleButton.y};
+    else
+        parameters["toggleButton"] = {
+            x = 500,
+            y = 500
+        };
+    end
+
+    if instance then
+        parameters["instance"] = {x = instance.x, y = instance.y};
+    else
+        parameters["instance"] = {
+            x = 300,
+            y = 300
+        };
+    end
+    
     return parameters
 
 end
