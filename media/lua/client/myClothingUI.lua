@@ -2,16 +2,14 @@ require "ISUI/ISCollapsableWindow"
 require "ISUI/ISPanelJoypad"
 require "ISUI/ISLabel"
 json = require "libs/json"
+local config = require "config";
 
 local FONT_HGT_SMALL = getTextManager():getFontHeight(UIFont.Small)
 local FONT_HGT_MEDIUM = getTextManager():getFontHeight(UIFont.Medium)
 local clothingCategories = {};
-local buttonHeight = 40;
-local buttonWidth = 40;
-local buttonRowSpacing = 60; -- spacing between rows
-local buttonColumnSpacing = 45;
-local buttonVerticalOffset = 40; -- offset from the top of main window
-local buttonHorizontalOffset = 30 + buttonWidth; -- offset from the category button
+
+local buttonVerticalOffset = 20; -- offset from the top of main window
+local buttonHorizontalOffset = 65; -- offset from the category button
 local toggleButton = {};
 
 myClothingUI = ISCollapsableWindow:derive("myClothingUI");
@@ -32,7 +30,7 @@ function myClothingUI:new(x, y, width, height)
     -- display categories buttons
     for k, v in pairs(clothingCategories) do
         print("creating button "..k.." on row "..v["displayRow"]);
-        local catButton = myCategoryButton:new(10, (v["displayRow"]*buttonRowSpacing)+buttonVerticalOffset, 2*buttonWidth, buttonHeight, k, v);
+        local catButton = myCategoryButton:new(10, (v["displayRow"] * config.slot_button_vertical_spacing) + config.slot_button_vertical_spacing / 2 + buttonVerticalOffset, 2 * config.slot_button_size, config.slot_button_size, k, v);
         o.categoryButtons[k] = catButton;
         o:addChild(catButton);
     end
@@ -309,9 +307,8 @@ function myClothingUI:drawButtonsFromItems(itemSet,itemCount)
         if itemCategory ~= nil then
             print("drawing "..item:getDisplayName().." on slot "..itemCategory);
             local category = clothingCategories[itemCategory];
-            local categoryRow = category["displayRow"];
-
-            instance.displayedSlots[k] =  myClothingSlot:new((buttonColumnSpacing * categoryIdx[itemCategory]) + buttonHorizontalOffset, (categoryRow*buttonRowSpacing)+buttonVerticalOffset, buttonWidth, buttonHeight, itemBodyLocation, item);
+            local categoryRow = category["displayRow"];            
+            instance.displayedSlots[k] =  myClothingSlot:new((config.slot_button_horizontal_spacing * categoryIdx[itemCategory]) + buttonHorizontalOffset, (categoryRow * config.slot_button_vertical_spacing) + config.slot_button_vertical_spacing / 2 + buttonVerticalOffset, config.slot_button_size, config.slot_button_size, itemBodyLocation, item);
             instance.displayedSlots[k].item = item;
             instance:addChild(instance.displayedSlots[k]);
             categoryIdx[itemCategory] = categoryIdx[itemCategory] + 1;
@@ -356,7 +353,7 @@ function myClothingUI.onMainButtonClicked()
 
     if instance == nil then
         print("window not initialized - create new window")
-        instance = myClothingUI:new(300,300,8*buttonWidth,8*buttonRowSpacing);
+        instance = myClothingUI:new(300,300, 8 * config.slot_button_size ,8 * config.slot_button_vertical_spacing);
         instance:addToUIManager();
         instance.itemCount = 0;
         instance:setTitle(getText("UI_CUI_window_title"));
@@ -368,34 +365,34 @@ function myClothingUI.onMainButtonClicked()
 
 end
 
-function myClothingUI:resizeUiElements()
+-- function myClothingUI:resizeUiElements()
 
-    print("resizing UI elements to fit resolution size");
+--     print("resizing UI elements to fit resolution size");
 
-    local scaleFactor = 1;
-	local xres = getCore():getScreenWidth()
-	local yres = getCore():getScreenHeight()
-    local defaultXres = 1827.0;
-    local defaultYres = 1057.0;
-    scaleFactor = yres / defaultYres;
-    -- never downscale
-    if scaleFactor < 1.0 then
-        scaleFactor = 1;
-    end
+--     local scaleFactor = 1;
+-- 	local xres = getCore():getScreenWidth()
+-- 	local yres = getCore():getScreenHeight()
+--     local defaultXres = 1827.0;
+--     local defaultYres = 1057.0;
+--     scaleFactor = yres / defaultYres;
+--     -- never downscale
+--     if scaleFactor < 1.0 then
+--         scaleFactor = 1;
+--     end
     
-    buttonHeight = 40*scaleFactor;
-    buttonWidth = 40*scaleFactor;
-    buttonRowSpacing = (60*scaleFactor);  -- spacing between rows
-    buttonColumnSpacing = (45*scaleFactor);
-    buttonVerticalOffset = 30*scaleFactor; --offset from the top of main window
-    buttonHorizontalOffset = (30*scaleFactor)+buttonWidth; --offset from the category button
+--     buttonHeight = 40*scaleFactor;
+--     buttonWidth = 40*scaleFactor;
+--     buttonRowSpacing = (60*scaleFactor);  -- spacing between rows
+--     buttonColumnSpacing = (buttonColumnSpacing * scaleFactor);
+--     buttonVerticalOffset = 30*scaleFactor; --offset from the top of main window
+--     buttonHorizontalOffset = (30*scaleFactor)+buttonWidth; --offset from the category button
 
-end
+-- end
 
 function myClothingUI:onGameStart()
 
     -- get current resolution and adjust button sizes
-    myClothingUI:resizeUiElements();
+    -- myClothingUI:resizeUiElements();
 
     -- load saved parameters
     local loadedParams = myClothingUI:loadSavedParameters();
@@ -409,8 +406,8 @@ function myClothingUI:onGameStart()
     toggleButton:addToUIManager();
 
     print("Create new window on game start")
-    instance = myClothingUI:new(loadedParams["instance"].x, loadedParams["instance"].y, 8 * buttonWidth,
-        9 * buttonRowSpacing);
+    instance = myClothingUI:new(loadedParams["instance"].x, loadedParams["instance"].y, 8 * config.slot_button_size,
+        9 * config.slot_button_vertical_spacing);
     instance:addToUIManager();
     instance.itemCount = 0;
     instance:setTitle(getText("UI_CUI_window_title"));

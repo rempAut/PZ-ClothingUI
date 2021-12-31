@@ -55,7 +55,7 @@ function myClothingSlot:render()
     --draw name of the slot    
     if config.display_slot_labels then
         local slotName = utils.getBodySlotText(self.slotTitle);        
-        self:drawText(slotName, 0 , -tonumber(config.slot_label_margin), 1, 1, 1, 1);    
+        self:drawText(slotName, 0 , -config.slot_label_margin, 1, 1, 1, 1);    
     end
 
     if self.slotItem then
