@@ -46,7 +46,7 @@ This mod doesn't require any special settings and is setup as any other mod on m
 1. Go into a folder `media/lua/shared/Translate`
 1. Copy the folder `EN` 
 2. Rename the folder to the code of your language, you can find them [here](https://github.com/TheIndieStone/ProjectZomboidTranslations)
-3. Change the name of the file from `UI_EN` to `UI_YOURCODE`
+3. Change the name of the files `UI_EN` and `IG_UI_EN` to `UI_YOUCODE` and `IG_UI_YOURCODE`
 4. Change the first line of the file from `UI_EN` to `UI_YOURCODE`
 5. Translate the texts in the file. 
 
