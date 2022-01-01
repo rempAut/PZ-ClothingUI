@@ -94,13 +94,20 @@ end
 function myClothingSlot:setClothingPicture(item)
 
     if item == nil then
-        self:setTextureRGBA(0.0,0.0,0.0, 0.0);
+        self:setTextureRGBA(0.0, 0.0, 0.0, 0.0);
         return
     else
         self:setImage(item:getTexture());
-        local tint = item:getVisual():getTint(item:getClothingItem());
-        self:setTextureRGBA(tint:getRedFloat(), tint:getGreenFloat(), tint:getBlueFloat(), 1.0);
-        self:forceImageSize(self.width*0.8, self.height*0.8);
+        local visual = item:getVisual();
+        local tint = nil;
+        -- make sure tint of texture is defined
+        if visual then
+            tint = visual:getTint(item:getClothingItem());
+        end
+        if tint ~= nil then
+            self:setTextureRGBA(tint:getRedFloat(), tint:getGreenFloat(), tint:getBlueFloat(), 1.0);
+        end
+        self:forceImageSize(self.width * 0.8, self.height * 0.8);
     end
 end
 

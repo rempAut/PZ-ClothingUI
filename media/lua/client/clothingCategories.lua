@@ -158,4 +158,44 @@ clothingCategories["TRINKET"]["Right_RingFinger"] = true;
 clothingCategories["TRINKET"]["Left_RingFinger"] = true;
 clothingCategories["TRINKET"]["BellyButton"] = true;
 
+
+-- MODDED ITEMS - SCAP ARMOR COMPATIBILITY
+--[[
+        https://steamcommunity.com/sharedfiles/filedetails/?id=2658619264&searchtext=Scrap+Armor
+
+        SpecialBelt
+        SwordSheath
+        TorsoRig
+        TorsoRig2
+        waistbags
+        UpperArmLeft
+        UpperArmRight
+        ThighLeft
+        ThighRight
+        LowerBody
+        Pauldrons
+        HandPlateLeft
+        HandPlateRight
+        ShinPlateLeft
+        ShinPlateRight
+        SpecialMask
+]] -- 
+clothingCategories["ACC"]["SpecialBelt"] = true;
+clothingCategories["ACC"]["SwordSheath"] = true;
+clothingCategories["BODY"]["TorsoRig"] = true;
+clothingCategories["BODY"]["TorsoRig2"] = true;
+clothingCategories["ACC"]["waistbags"] = true;
+clothingCategories["HANDS"]["UpperArmLeft"] = true;
+clothingCategories["HANDS"]["UpperArmRight"] = true;
+clothingCategories["LEGS"]["ThighLeft"] = true;
+clothingCategories["LEGS"]["ThighRight"] = true;
+clothingCategories["BODY"]["LowerBody"] = true;
+clothingCategories["BODY"]["Pauldrons"] = true;
+clothingCategories["HANDS"]["HandPlateLeft"] = true;
+clothingCategories["HANDS"]["HandPlateRight"] = true;
+clothingCategories["LEGS"]["ShinPlateLeft"] = true;
+clothingCategories["LEGS"]["ShinPlateRight"] = true;
+clothingCategories["HEAD"]["SpecialMask"] = true;
+
+
 return clothingCategories;

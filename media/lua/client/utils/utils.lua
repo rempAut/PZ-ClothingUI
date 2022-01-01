@@ -1,7 +1,14 @@
 local utils = {};
 
 function utils.getBodySlotText(bodySlot)
-    return getText("UI_CUI_" .. bodySlot);
+
+    local localizedText = getText("UI_CUI_" .. bodySlot);
+    if string.find(localizedText, "UI_CUI_") then
+        return bodySlot;
+    else
+        return localizedText;
+    end
+
 end
 
 function utils.getCategoryButtonText(category)

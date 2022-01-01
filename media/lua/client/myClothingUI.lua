@@ -113,7 +113,13 @@ function myClothingUI:getClothingItemCategory(itemBodyLocation)
 
 end
 
-function myClothingUI:drawButtonsFromItems(itemSet,itemCount)
+local function addClothingCategory(category, bodyLocation, inClothingCategories)
+    if inClothingCategories[category] then
+        inClothingCategories[category][bodyLocation] = true;
+    end
+end
+
+function myClothingUI:drawButtonsFromItems(itemSet, itemCount)
     print("/////////redrawing//////////");
     -- create mySlotIstance for each clothing item category
     myClothingUI:removeItemButtons();
@@ -124,7 +130,7 @@ function myClothingUI:drawButtonsFromItems(itemSet,itemCount)
     -- init category indexes - store position of displayed button for this category
     local categoryIdx = {};
     for k, v in pairs(clothingCategories) do
-       categoryIdx[k] = 1;
+        categoryIdx[k] = 1;
     end
 
     -- handle drawing of item categories
@@ -139,18 +145,25 @@ function myClothingUI:drawButtonsFromItems(itemSet,itemCount)
 
         -- choose where to draw based on category.
         if itemCategory ~= nil then
-            print("drawing "..item:getDisplayName().." on slot "..itemCategory);
-            local category = clothingCategories[itemCategory];
-            local categoryRow = category["displayRow"];            
-            instance.displayedSlots[k] =  myClothingSlot:new(((config.slot_button_horizontal_spacing + config.slot_button_size) * categoryIdx[itemCategory]) + config.slot_button_size +  buttonHorizontalOffset, (categoryRow * (config.slot_button_vertical_spacing  + config.slot_button_size)) + config.slot_button_size / 2 + config.slot_button_vertical_spacing  + buttonVerticalOffset, config.slot_button_size, config.slot_button_size, itemBodyLocation, item);
-            instance.displayedSlots[k].item = item;
-            instance:addChild(instance.displayedSlots[k]);
-            categoryIdx[itemCategory] = categoryIdx[itemCategory] + 1;
-        else    -- else category unknown
-            print("category unknown, item: "..item:getDisplayName())
-            instance.displayedSlots[k] =  myClothingSlot:new(20, 20, 50, 50, itemBodyLocation, item);
-            instance.displayedSlots[k].item = item;      
+            print("drawing " .. item:getDisplayName() .. " on slot " .. itemCategory);
+        else -- else category unknown
+            print("category unknown, item: " .. item:getDisplayName())
+            addClothingCategory("ACC", itemBodyLocation, clothingCategories);-- force add the category to ACC
+            itemCategory = myClothingUI:getClothingItemCategory(itemBodyLocation); -- get the category again
         end
+
+        local category = clothingCategories[itemCategory];
+        local categoryRow = category["displayRow"];
+        instance.displayedSlots[k] = myClothingSlot:new(((config.slot_button_horizontal_spacing +
+                                                            config.slot_button_size) * categoryIdx[itemCategory]) +
+                                                            config.slot_button_size + buttonHorizontalOffset,
+            (categoryRow * (config.slot_button_vertical_spacing + config.slot_button_size)) + config.slot_button_size /
+                2 + config.slot_button_vertical_spacing + buttonVerticalOffset, config.slot_button_size,
+            config.slot_button_size, itemBodyLocation, item);
+        instance.displayedSlots[k].item = item;
+        instance:addChild(instance.displayedSlots[k]);
+        categoryIdx[itemCategory] = categoryIdx[itemCategory] + 1;
+
     end
 
 end
