@@ -1,6 +1,6 @@
 local clothingCategories = {};
 
--- Clothinsg categories and their order
+-- Clothing categories and their order
 clothingCategories["HEAD"] = {};
 clothingCategories["BODY"] = {};
 clothingCategories["UNDIES"] = {};

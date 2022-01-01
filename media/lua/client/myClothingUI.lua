@@ -13,21 +13,6 @@ local buttonHorizontalOffset = 20; -- offset from the category button
 local toggleButton = {};
 local instance = {};
 
-function dump(o)
-    if type(o) == 'table' then
-       local s = '{ '
-       for k,v in pairs(o) do
-          if type(k) ~= 'number' then k = '"'..k..'"' end
-          s = s .. '['..k..'] = ' .. dump(v) .. ','
-       end
-       return s .. '} '
-    else
-       return tostring(o)
-    end
- end
-
- print("DUMP BITCH", dump(clothingCategories));
-
 
 myClothingUI = ISCollapsableWindow:derive("myClothingUI");
 
