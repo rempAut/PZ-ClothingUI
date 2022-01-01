@@ -74,7 +74,7 @@ local SETTINGS = {
             "40",
             name = "IGUI_CUI_Slot_vertical_spacing",
             tooltip = "IGUI_CUI_Slot_vertical_spacing_tooltip",
-            default = 1,
+            default = 2,
             OnApplyMainMenu = OnApply
         },
         slot_button_size = {
@@ -88,7 +88,7 @@ local SETTINGS = {
             "65",
             name = "IGUI_CUI_Slot_button_size",
             tooltip = "IGUI_CUI_Slot_button_size_tooltip",
-            default = 1,
+            default = 3,
             OnApplyMainMenu = OnApply
         }
     },
