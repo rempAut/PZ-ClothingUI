@@ -4,10 +4,24 @@ This mod was created to provide a better overview of equipped items. Often, it w
 
 **Download from Steam workshop** https://steamcommunity.com/sharedfiles/filedetails/?id=2695471997
 
-
-### Bugs, Issues or other ideas
 If you have any issue or idea, feel free to create a ticket under [issues](https://github.com/rempAut/PZ-ClothingUI/issues)
 
+## Options / configuration
+To be able to configure the mod, you need to install Mod Options mod https://steamcommunity.com/sharedfiles/filedetails/?id=2169435993&searchtext=mod+options
+
+1. Start the game and enable the Options mod (Don't forget to enable it also on your save file)
+2. Load into Single Player Game
+3. Open game settings, click on tab Mods (Doesn't show in the Multiplayer games!)
+4. Configure the mod to you liking (To be able to see the changes, you need to open/close the Clothing UI window)
+![example](https://user-images.githubusercontent.com/8086995/147850514-0adce024-68fb-448a-ad9a-cb8f86611c45.png)
+
+
+**Multiplayer support**
+- The Mod Options doesn't work / is displayed in multiplayer, however the values are loaded in MP games. 
+- Configure your window in the single player / main menu before loading to multiplayer games.
+- Server doesn't need to have Mod Options installed.
+
+The values are saved in file `C:\Users\<user>\Zomboid\Lua\mods_options.ini` to reset / remove the config either edit this file and remove the lines bellow `[myclothinguimod]` or if you don't use mod options for anything else - delete the whole file. 
 
 ## Multiplayer support
 To be able to use this mod in multiplayer(coop) you need to enable this mod in your server settings.
