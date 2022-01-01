@@ -1,6 +1,6 @@
 UI_RU = {
     UI_CUI_window_title = "Экипированные предметы",
-    UI_CUI_no_items_avaliable = "Нет доступных предметов в инвентаре,
+    UI_CUI_no_items_avaliable = "Нет доступных предметов в инвентаре",
 
     -- Category Buttons
     UI_CUI_Category_HEAD = "ГОЛОВА",
