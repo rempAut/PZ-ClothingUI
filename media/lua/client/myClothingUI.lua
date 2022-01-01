@@ -11,6 +11,7 @@ local clothingCategories = {};
 local buttonVerticalOffset = 20; -- offset from the top of main window
 local buttonHorizontalOffset = 20; -- offset from the category button
 local toggleButton = {};
+local instance = {};
 
 myClothingUI = ISCollapsableWindow:derive("myClothingUI");
 
@@ -23,14 +24,27 @@ function myClothingUI:new(x, y, width, height)
     o = ISCollapsableWindow:new(x, y, width, height); -- like inventory window
     setmetatable(o, self)
     self.__index = self
-    o.backgroundColor = {r=0, g=0, b=0, a=0.8};
-    o.borderColor = {r=0.4, g=0.4, b=0.4, a=1};
+    o.backgroundColor = {
+        r = 0,
+        g = 0,
+        b = 0,
+        a = 0.8
+    };
+    o.borderColor = {
+        r = 0.4,
+        g = 0.4,
+        b = 0.4,
+        a = 1
+    };
 
     o.categoryButtons = {};
     -- display categories buttons
     for k, v in pairs(clothingCategories) do
-        print("creating button "..k.." on row "..v["displayRow"]);
-        local catButton = myCategoryButton:new(10, (v["displayRow"] * (config.slot_button_vertical_spacing + config.slot_button_size)) + config.slot_button_vertical_spacing / 2 + buttonVerticalOffset, 2 * config.slot_button_size, config.slot_button_size, k, v);
+        print("creating button " .. k .. " on row " .. v["displayRow"]);
+        local catButton = myCategoryButton:new(10,
+            (v["displayRow"] * (config.slot_button_vertical_spacing + config.slot_button_size)) +
+                config.slot_button_vertical_spacing / 2 + buttonVerticalOffset, 2 * config.slot_button_size,
+            config.slot_button_size, k, v);
         o.categoryButtons[k] = catButton;
         o:addChild(catButton);
     end
@@ -341,11 +355,32 @@ function myClothingUI:handleToggle()
     if self:getIsVisible() then
         self:setVisible(false);
     else
+        self:resizeCategoryButtons();
         self:setVisible(true);
     end
 
 end
 
+function myClothingUI:resizeCategoryButtons()
+
+    -- on toggle remove all category buttons
+    for key, button in pairs(self.categoryButtons) do
+        self:removeChild(button);
+    end
+    self.categoryButtons = {};
+
+    -- display categories buttons
+    for k, v in pairs(clothingCategories) do
+        print("creating button " .. k .. " on row " .. v["displayRow"]);
+        local catButton = myCategoryButton:new(10,
+            (v["displayRow"] * (config.slot_button_vertical_spacing + config.slot_button_size)) +
+                config.slot_button_vertical_spacing / 2 + buttonVerticalOffset, 2 * config.slot_button_size,
+            config.slot_button_size, k, v);
+        self.categoryButtons[k] = catButton;
+        self:addChild(catButton);
+    end
+
+end
 
 
 
@@ -353,7 +388,8 @@ function myClothingUI.onMainButtonClicked()
 
     if instance == nil then
         print("window not initialized - create new window")
-        instance = myClothingUI:new(300,300, 8 * config.slot_button_size ,8 * config.slot_button_vertical_spacing);
+        instance = myClothingUI:new(loadedParams["instance"].x, loadedParams["instance"].y, 8 * config.slot_button_size,
+            9 * (config.slot_button_vertical_spacing + config.slot_button_size));
         instance:addToUIManager();
         instance.itemCount = 0;
         instance:setTitle(getText("UI_CUI_window_title"));

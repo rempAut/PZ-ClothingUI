@@ -64,6 +64,7 @@ local SETTINGS = {
             OnApplyMainMenu = OnApply
         },
         slot_button_vertical_spacing = {
+            "15",
             "20",
             "25",
             "30",
@@ -77,6 +78,8 @@ local SETTINGS = {
             OnApplyMainMenu = OnApply
         },
         slot_button_size = {
+            "30",
+            "35",
             "40",
             "45",
             "50",
