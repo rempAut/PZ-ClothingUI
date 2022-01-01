@@ -61,3 +61,7 @@ In case you don't know how to work with GIT, please create a new [ISSUE](https:/
 5. Close the game
 6. Find the log in C:\Users\[username]\Zomboid\console.txt and upload it together with your issue
 
+
+## Manual Inslation
+- Select the release https://github.com/rempAut/PZ-ClothingUI/releases
+- Download the zip, extract it, put it into `C:\Users\<username>\Zomboid\mods`
