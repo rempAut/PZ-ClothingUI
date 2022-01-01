@@ -3,22 +3,20 @@ require "ISUI/ISPanelJoypad"
 require "ISUI/ISLabel"
 json = require "libs/json"
 local config = require "config";
+local clothingCategories = require "clothingCategories";
 
 local FONT_HGT_SMALL = getTextManager():getFontHeight(UIFont.Small)
 local FONT_HGT_MEDIUM = getTextManager():getFontHeight(UIFont.Medium)
-local clothingCategories = {};
 
-local buttonVerticalOffset = 20; -- offset from the top of main window
+local buttonVerticalOffset = 5; -- offset from the top of main window
 local buttonHorizontalOffset = 20; -- offset from the category button
 local toggleButton = {};
 local instance = {};
 
+
 myClothingUI = ISCollapsableWindow:derive("myClothingUI");
 
 function myClothingUI:new(x, y, width, height)
-    -- initalize categories
-    clothingCategories = {};
-    myClothingUI:createClothingCategories();
 
     local o = {}
     o = ISCollapsableWindow:new(x, y, width, height); -- like inventory window
@@ -38,186 +36,8 @@ function myClothingUI:new(x, y, width, height)
     };
 
     o.categoryButtons = {};
-    -- display categories buttons
-    for k, v in pairs(clothingCategories) do
-        print("creating button " .. k .. " on row " .. v["displayRow"]);
-        local catButton = myCategoryButton:new(10,
-            (v["displayRow"] * (config.slot_button_vertical_spacing + config.slot_button_size)) +
-                config.slot_button_vertical_spacing / 2 + buttonVerticalOffset, 2 * config.slot_button_size,
-            config.slot_button_size, k, v);
-        o.categoryButtons[k] = catButton;
-        o:addChild(catButton);
-    end
+
     return o
-end
-
-function myClothingUI:createClothingCategories()
-    print("creating clothing categories")
-
---[[ LIST OF ALL VANILLA BODYLOCATIONS FROM THE GAME FILES
-        BodyLocation = FannyPackFront,		
-        BodyLocation = FannyPackBack,		
-        BodyLocation = Hat,		
-        BodyLocation = Mask,		
-        BodyLocation = FullHat,		
-        BodyLocation = MaskEyes,		
-        BodyLocation = MaskFull,		
-        BodyLocation = FullHelmet,		
-        BodyLocation = Jacket,		
-        BodyLocation = FullTop,		
-        BodyLocation = JacketHat,		
-        BodyLocation = Sweater,		
-        BodyLocation = TorsoExtra,		
-        BodyLocation = SweaterHat,		
-        BodyLocation = Necklace,		
-        BodyLocation = Necklace_Long,		
-        BodyLocation = Neck,		
-        BodyLocation = Nose,		
-        BodyLocation = Ears,		
-        BodyLocation = EarTop,		
-        BodyLocation = Right_MiddleFinger,		
-        BodyLocation = Left_MiddleFinger,		
-        BodyLocation = Right_RingFinger,		
-        BodyLocation = Left_RingFinger,		
-        BodyLocation = RightWrist,		
-        BodyLocation = LeftWrist,		
-        BodyLocation = BellyButton,		
-        BodyLocation = Eyes,		
-        BodyLocation = LeftEye,		
-        BodyLocation = RightEye,		
-        BodyLocation = Hands,		
-        BodyLocation = Scarf,		
-        BodyLocation = Underwear,		
-        BodyLocation = MakeUp_FullFace,		
-        BodyLocation = MakeUp_Eyes,		
-        BodyLocation = MakeUp_EyesShadow,		
-        BodyLocation = MakeUp_Lips,		
-        BodyLocation = Belt,		
-        BodyLocation = BeltExtra,		
-        BodyLocation = AmmoStrap,		
-        BodyLocation = Tail,		
-        BodyLocation = Legs1,		
-        BodyLocation = Pants,		
-        BodyLocation = Skirt,		
-        BodyLocation = ShortSleeveShirt,		
-        BodyLocation = Shirt,		
-        BodyLocation = Tshirt,		
-        BodyLocation = TankTop,		
-        BodyLocation = Socks,		
-        BodyLocation = UnderwearInner,		
-        BodyLocation = Shoes,		
-        BodyLocation = Torso1Legs1,		
-        BodyLocation = BathRobe,		
-        BodyLocation = FullSuit,		
-        BodyLocation = FullSuitHead,		
-        BodyLocation = Dress,		
-        BodyLocation = UnderwearTop,		
-        BodyLocation = UnderwearBottom,		
-        BodyLocation = UnderwearExtra1,		
-        BodyLocation = UnderwearExtra2,		
-        BodyLocation = ZedDmg,		
-        BodyLocation = Bandage,		
-        BodyLocation = Wound,		
-
-]]--
-
-    -- head items
-    local category = {};
-    category["displayRow"] = 0;
-    category["FullHelmet"] = true;
-    category["MaskFull"] = true;
-    category["FullHat"] = true;
-    category["MaskEyes"] = true;
-    category["Hat"] = true;
-    category["Mask"] = true;
-    category["Eyes"] = true;
-    category["LeftEye"] = true;
-    category["RightEye"] = true;
-    clothingCategories["HEAD"] = category;
-
-    --torso category
-    category = {};
-    category["displayRow"] = 1;
-    category["Jacket"] = true;
-    category["FullTop"] = true;
-    category["JacketHat"] = true;
-    category["Sweater"] = true;
-    category["TorsoExtra"] = true;
-    category["SweaterHat"] = true;
-    category["ShortSleeveShirt"] = true;
-    category["Shirt"] = true;
-    category["Tshirt"] = true;
-    category["TankTop"] = true;
-    category["Torso1Legs1"] = true;
-    category["BathRobe"] = true;
-    category["FullSuit"] = true;
-    category["FullSuitHead"] = true;
-    category["Dress"] = true;
-    category["Scarf"] = true;
-    clothingCategories["BODY"] = category;
-
-    -- underwear
-    category = {};
-    category["displayRow"] = 2;
-    category["Underwear"] = true;
-    category["UnderwearInner"] = true;
-    category["UnderwearTop"] = true;
-    category["UnderwearBottom"] = true;
-    category["UnderwearExtra1"] = true;
-    category["UnderwearExtra2"] = true;
-    clothingCategories["UNDIES"] = category;
-
-    -- hands category
-    category = {};
-    category["displayRow"] = 3;
-    category["Hands"] = true;
-    category["RightWrist"] = true;
-    category["LeftWrist"] = true;
-    clothingCategories["HANDS"] = category;
-    
-    --legs category
-    category = {};
-    category["displayRow"] = 4;
-    category["Legs1"] = true;
-    category["Pants"] = true;
-    category["Skirt"] = true;
-    clothingCategories["LEGS"] = category;
-
-    -- feet category
-    category = {};
-    category["displayRow"] = 5;
-    category["Shoes"] = true;
-    category["Socks"] = true;
-    clothingCategories["FEET"] = category;
-
-    --accessories
-    category = {};
-    category["displayRow"] = 6;
-    category["Belt"] = true;
-   
-    category["BeltExtra"] = true;
-    category["AmmoStrap"] = true;
-    category["FannyPackFront"] = true;
-    category["FannyPackBack"] = true;
-    category["Tail"] = true;
-    clothingCategories["ACC"] = category;
-
-    --jewels
-    category = {};
-    category["displayRow"] = 7;
-    category["Necklace"] = true;
-    category["Necklace_Long"] = true;
-    category["Neck"] = true;
-    category["Ears"] = true;
-    category["Nose"] = true;
-    category["EarTop"] = true;
-    category["Right_MiddleFinger"] = true;
-    category["Left_MiddleFinger"] = true;
-    category["Right_RingFinger"] = true;
-    category["Left_RingFinger"] = true;
-    category["BellyButton"] = true;
-    clothingCategories["TRINKET"] = category;
-
 end
 
 
@@ -322,7 +142,7 @@ function myClothingUI:drawButtonsFromItems(itemSet,itemCount)
             print("drawing "..item:getDisplayName().." on slot "..itemCategory);
             local category = clothingCategories[itemCategory];
             local categoryRow = category["displayRow"];            
-            instance.displayedSlots[k] =  myClothingSlot:new(((config.slot_button_horizontal_spacing + config.slot_button_size) * categoryIdx[itemCategory]) + config.slot_button_size +  buttonHorizontalOffset, (categoryRow * (config.slot_button_vertical_spacing  + config.slot_button_size)) + config.slot_button_vertical_spacing / 2 + buttonVerticalOffset, config.slot_button_size, config.slot_button_size, itemBodyLocation, item);
+            instance.displayedSlots[k] =  myClothingSlot:new(((config.slot_button_horizontal_spacing + config.slot_button_size) * categoryIdx[itemCategory]) + config.slot_button_size +  buttonHorizontalOffset, (categoryRow * (config.slot_button_vertical_spacing  + config.slot_button_size)) + config.slot_button_size / 2 + config.slot_button_vertical_spacing  + buttonVerticalOffset, config.slot_button_size, config.slot_button_size, itemBodyLocation, item);
             instance.displayedSlots[k].item = item;
             instance:addChild(instance.displayedSlots[k]);
             categoryIdx[itemCategory] = categoryIdx[itemCategory] + 1;
@@ -355,15 +175,15 @@ function myClothingUI:handleToggle()
     if self:getIsVisible() then
         self:setVisible(false);
     else
-        self:resizeCategoryButtons();
+        self:renderCategoryButtons();
         self:setVisible(true);
     end
 
 end
 
-function myClothingUI:resizeCategoryButtons()
+function myClothingUI:renderCategoryButtons()
 
-    -- on toggle remove all category buttons
+    -- on toggle remove all old category buttons
     for key, button in pairs(self.categoryButtons) do
         self:removeChild(button);
     end
@@ -371,10 +191,10 @@ function myClothingUI:resizeCategoryButtons()
 
     -- display categories buttons
     for k, v in pairs(clothingCategories) do
-        print("creating button " .. k .. " on row " .. v["displayRow"]);
+        print("CUI - Creating category button " .. k .. " on row " .. v["displayRow"]);
         local catButton = myCategoryButton:new(10,
             (v["displayRow"] * (config.slot_button_vertical_spacing + config.slot_button_size)) +
-                config.slot_button_vertical_spacing / 2 + buttonVerticalOffset, 2 * config.slot_button_size,
+                config.slot_button_size / 2 + config.slot_button_vertical_spacing + buttonVerticalOffset, 2 * config.slot_button_size,
             config.slot_button_size, k, v);
         self.categoryButtons[k] = catButton;
         self:addChild(catButton);
@@ -462,13 +282,13 @@ function myClothingUI:loadSavedParameters()
 
     -- file found parse the json
     if reader then
-        print("clothingUI - reading parameters from config file");
+        print("CUI - reading parameters from config file");
         local line = reader:readLine();
         reader:close();
 
         -- we need a protection against empty file or other malformed files
         if not line or line == nil or line == "" then
-            print("clothingUI - invalid parameters files");
+            print("CUI - invalid parameters files");
             loadDefaults = true;
         else
             parameters = json.parse(line);
@@ -484,11 +304,11 @@ function myClothingUI:loadSavedParameters()
     else
         -- no file found, load default parameters
         loadDefaults = true;
-        print("clothingUI - no parameters file found");
+        print("CUI - No parameters file found");
     end
 
     if loadDefaults == true then
-        print("clothingUI - loading default parameters");
+        print("CUI - Loading default parameters");
         parameters["toggleButton"] = {
             x = 500,
             y = 500
@@ -507,7 +327,7 @@ end
 -- returns table with parameters
 -- returns "none" if no value found.
 function myClothingUI:createSavedParameters()
-    print("myClothingUI - saving button locations");
+    print("CUI - Saving button locations");
     local parameters = {};
 
     if toggleButton then
@@ -538,7 +358,7 @@ function myClothingUI:onSave()
     -- save was not triggered from the loaded game (new game route).
     if instance then
         -- get file
-        print("writing button location parameters to file");
+        print("CUI - Writing button location parameters to file");
         local writer = getFileWriter("clothingui.ini", true, false)
 
         -- write button locations parameters
