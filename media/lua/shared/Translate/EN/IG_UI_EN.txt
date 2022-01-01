@@ -1,0 +1,13 @@
+IGUI_EN = {
+   IGUI_CUI_Display_slot_label  = "Display cloting slot labels",
+   IGUI_CUI_Display_slot_label_tooltip = "Display or hide slot label",
+   IGUI_CUI_Slot_label_margin = "Cloting slot label margin",
+   IGUI_CUI_Slot_label_margin_tooltip = "Distance between the label and icon. Increase to move up",
+   IGUI_CUI_Slot_horizontal_spacing = "Clothing slot horizontal spacing",
+   IGUI_CUI_Slot_horizontal_spacing_tooltip = "Horizontal gap between the slot icons.",
+   IGUI_CUI_Slot_vertical_spacing = "Clothing slot vertical spacing",
+   IGUI_CUI_Slot_vertical_spacing_tooltip = "Vertical gap between the slot icons.",
+   IGUI_CUI_Slot_button_size = "Clothing slot icon size",
+   IGUI_CUI_Slot_button_size_tooltip = "Size of the button"
+}
+
