@@ -254,8 +254,8 @@ function myClothingUI:onGameStart()
     toggleButton:addToUIManager();
 
     print("CUI - Create new window on game start")
-    instance = myClothingUI:new(loadedParams["instance"].x, loadedParams["instance"].y, 8 * config.slot_button_size,
-        9 * (config.slot_button_vertical_spacing + config.slot_button_size));
+    instance = myClothingUI:new(loadedParams["instance"].x, loadedParams["instance"].y, loadedParams["instance"].width,
+        loadedParams["instance"].height);
     instance:addToUIManager();
     instance.itemCount = 0;
     instance:setTitle(getText("UI_CUI_window_title"));
@@ -311,10 +311,11 @@ function myClothingUI:loadSavedParameters()
             -- parsed OK but key doesnt exists
             if not parameters["toggleButton"] or not parameters["instance"] then
                 loadDefaults = true;
-            -- both keys exists but one member is missing
-            elseif  not (parameters["toggleButton"].x and parameters["toggleButton"].y and parameters["instance"].x and parameters["instance"].y)    then
+                -- both keys exists but any member is missing
+            elseif not (parameters["toggleButton"].x and parameters["toggleButton"].y and parameters["instance"].x and
+                parameters["instance"].y and parameters["instance"].width and parameters["instance"].height) then
                 loadDefaults = true;
-            end;
+            end
         end
 
     else
@@ -331,7 +332,9 @@ function myClothingUI:loadSavedParameters()
         };
         parameters["instance"] = {
             x = 300,
-            y = 300
+            y = 300,
+            width = 8 * config.slot_button_size,
+            height = 9 * (config.slot_button_vertical_spacing + config.slot_button_size)
         };
     end
 
@@ -347,7 +350,10 @@ function myClothingUI:createSavedParameters()
     local parameters = {};
 
     if toggleButton then
-        parameters["toggleButton"] = {x = toggleButton.x, y = toggleButton.y};
+        parameters["toggleButton"] = {
+            x = toggleButton.x,
+            y = toggleButton.y
+        };
     else
         parameters["toggleButton"] = {
             x = 500,
@@ -356,14 +362,21 @@ function myClothingUI:createSavedParameters()
     end
 
     if instance then
-        parameters["instance"] = {x = instance.x, y = instance.y};
+        parameters["instance"] = {
+            x = instance.x,
+            y = instance.y,
+            width = instance.width,
+            height = instance.height
+        };
     else
         parameters["instance"] = {
             x = 300,
-            y = 300
+            y = 300,
+            width = instance.width,
+            height = instance.height
         };
     end
-    
+
     return parameters
 
 end
