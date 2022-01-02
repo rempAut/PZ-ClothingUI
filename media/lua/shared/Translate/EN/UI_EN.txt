@@ -76,4 +76,22 @@ UI_EN = {
     UI_CUI_ZedDmg = "ZedDmg",
     UI_CUI_Bandage = "Bandage",
     UI_CUI_Wound = "Wound",
+
+    -- Body slots of scrap armor
+    UI_CUI_SpecialBelt = "ScrapBelt",
+    UI_CUI_SwordSheath = "Sheath",
+    UI_CUI_TorsoRig = "Rig 1",
+    UI_CUI_TorsoRig2 = "Rig 2",
+    UI_CUI_waistbags = "WaistBag",
+    UI_CUI_UpperArmLeft = "Arm L",
+    UI_CUI_UpperArmRight = "Arm R",
+    UI_CUI_ThighLeft = "Thigh L",
+    UI_CUI_ThighRight = "Thigh R",
+    UI_CUI_LowerBody = "Kilt",
+    UI_CUI_Pauldrons = "Pauldrons",
+    UI_CUI_HandPlateLeft = "Plate L",
+    UI_CUI_HandPlateRight = "Plate R",
+    UI_CUI_ShinPlateLeft = "Plate L",
+    UI_CUI_ShinPlateRight = "Plate R",
+    UI_CUI_SpecialMask = "Scrap Mask",
 }

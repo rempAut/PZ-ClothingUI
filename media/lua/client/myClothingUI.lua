@@ -64,8 +64,11 @@ function myClothingUI:update()
     -- find equipped clothing items
     for i=0, playerItems:size()-1 do
         local loopitem = playerItems:get(i);
-        if loopitem:isEquipped() and loopitem:IsClothing() then
-            currentlyEquipped.items[loopitem:getBodyLocation()] = loopitem; --body location is a key.
+        local itemBodyLocation = loopitem:getBodyLocation();
+        local shouldBeDisplayed = loopitem:IsClothing() or itemBodyLocation and (itemBodyLocation ~= "");
+
+        if loopitem:isEquipped() and shouldBeDisplayed then
+            currentlyEquipped.items[itemBodyLocation] = loopitem; --body location is a key.
             currentlyEquipped.count = currentlyEquipped.count + 1;
         end
     end
