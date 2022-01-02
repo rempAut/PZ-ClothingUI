@@ -111,6 +111,7 @@ local function getBodyLocationIndex(bodyLocations, bodyLocation)
             location = location + 1;
         end
     end
+    return location;
 
 end
 
