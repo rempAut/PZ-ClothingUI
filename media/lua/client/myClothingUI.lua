@@ -42,33 +42,35 @@ end
 
 
 function myClothingUI:update()
-    
+
     -- return if window not initialized
-    if instance == nil then 
-        return 
+    if instance == nil then
+        return
     end
 
     if not instance:getIsVisible() then
         return
     end
 
-    --get currently equipped items.
+    -- get currently equipped items.
     local playerObj = getPlayer();
     local playerInv = playerObj:getInventory();
-    local playerItems =  playerInv:getItems();
-    
+    local playerItems = playerInv:getItems();
+
     local currentlyEquipped = {};
     currentlyEquipped.items = {};
     currentlyEquipped.count = 0;
-    
+
     -- find equipped clothing items
-    for i=0, playerItems:size()-1 do
+    for i = 0, playerItems:size() - 1 do
         local loopitem = playerItems:get(i);
         local itemBodyLocation = loopitem:getBodyLocation();
-        local shouldBeDisplayed = loopitem:IsClothing() or itemBodyLocation and (itemBodyLocation ~= "");
+        local isBandage = itemBodyLocation == "Bandage" or itemBodyLocation == "ZedDmg" or itemBodyLocation == "Wound";
+        local shouldBeDisplayed = ((loopitem:IsClothing()) or (itemBodyLocation and (itemBodyLocation ~= ""))) 
+                                  and not isBandage;
 
         if loopitem:isEquipped() and shouldBeDisplayed then
-            currentlyEquipped.items[itemBodyLocation] = loopitem; --body location is a key.
+            currentlyEquipped.items[itemBodyLocation] = loopitem; -- body location is a key.
             currentlyEquipped.count = currentlyEquipped.count + 1;
         end
     end
@@ -77,24 +79,23 @@ function myClothingUI:update()
     if currentlyEquipped.count == 0 then
         myClothingUI:removeItemButtons();
         return;
-    end;
-
+    end
 
     if instance.itemCount then
-         -- if different number of items detected, redraw
+        -- if different number of items detected, redraw
         if instance.itemCount ~= currentlyEquipped.count then
-            myClothingUI:drawButtonsFromItems(currentlyEquipped.items,currentlyEquipped.count);
+            myClothingUI:drawButtonsFromItems(currentlyEquipped.items, currentlyEquipped.count);
             return;
-        end;
+        end
 
         -- check if there are differences in equipped and shown items
         local myInstance = instance.displayedSlots;
         for k, v in pairs(currentlyEquipped.items) do
-             -- category not found or item has changed
-             if (not instance.displayedSlots[k]) or (instance.displayedSlots[k].item ~= v ) then
-                    myClothingUI:drawButtonsFromItems(currentlyEquipped.items,currentlyEquipped.count);
+            -- category not found or item has changed
+            if (not instance.displayedSlots[k]) or (instance.displayedSlots[k].item ~= v) then
+                myClothingUI:drawButtonsFromItems(currentlyEquipped.items, currentlyEquipped.count);
                 return;
-             end
+            end
         end
     end
 
