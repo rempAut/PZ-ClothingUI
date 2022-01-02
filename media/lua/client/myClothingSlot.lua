@@ -18,7 +18,7 @@ local function predicateNotBroken(item)
     return not item:isBroken()
 end
 
-function myClothingSlot:new (x, y, width, height, slotTitle, slotItem )
+function myClothingSlot:new (x, y, width, height, bodyLocation, slotItem )
     local o = {}
     o = ISButton:new(x, y, width, height);
     setmetatable(o, self)
@@ -37,7 +37,7 @@ function myClothingSlot:new (x, y, width, height, slotTitle, slotItem )
     o.backgroundColorMouseOver.a = 0.8;
     o.contextMenu = nil;
     o.slotItem = slotItem;
-    o.slotTitle = slotTitle;
+    o.bodyLocation = bodyLocation;
     o.activeItemTooltip = ISToolTipInv:new(slotItem);
     o.activeItemTooltip:setOwner(o);
     o.activeItemTooltip:setVisible(false);
@@ -54,7 +54,7 @@ function myClothingSlot:render()
 
     --draw name of the slot    
     if config.display_slot_labels then
-        local slotName = utils.getBodySlotText(self.slotTitle);        
+        local slotName = utils.getBodySlotText(self.bodyLocation);        
         self:drawText(slotName, 0 , -config.slot_label_margin, 1, 1, 1, 1);    
     end
 
@@ -94,13 +94,20 @@ end
 function myClothingSlot:setClothingPicture(item)
 
     if item == nil then
-        self:setTextureRGBA(0.0,0.0,0.0, 0.0);
+        self:setTextureRGBA(0.0, 0.0, 0.0, 0.0);
         return
     else
         self:setImage(item:getTexture());
-        local tint = item:getVisual():getTint(item:getClothingItem());
-        self:setTextureRGBA(tint:getRedFloat(), tint:getGreenFloat(), tint:getBlueFloat(), 1.0);
-        self:forceImageSize(self.width*0.8, self.height*0.8);
+        local visual = item:getVisual();
+        local tint = nil;
+        -- make sure tint of texture is defined
+        if visual then
+            tint = visual:getTint(item:getClothingItem());
+        end
+        if tint ~= nil then
+            self:setTextureRGBA(tint:getRedFloat(), tint:getGreenFloat(), tint:getBlueFloat(), 1.0);
+        end
+        self:forceImageSize(self.width * 0.8, self.height * 0.8);
     end
 end
 
@@ -134,7 +141,7 @@ function myClothingSlot:doMenu(x,y)
     -- find a clothing item of this category
     for i=0, playerInv:getItems():size()-1 do
         local loopitem = playerInv:getItems():get(i);
-        if (loopitem:getBodyLocation() == self.slotTitle ) and not ( loopitem:isEquipped()) then
+        if (loopitem:getBodyLocation() == self.bodyLocation ) and not ( loopitem:isEquipped()) then
 
             if not subMenuAttach then
                 local subOption = self.contextMenu:addOptionOnTop(getText("EQUIP"), nil);

@@ -64,8 +64,11 @@ function myClothingUI:update()
     -- find equipped clothing items
     for i=0, playerItems:size()-1 do
         local loopitem = playerItems:get(i);
-        if loopitem:isEquipped() and loopitem:IsClothing() then
-            currentlyEquipped.items[loopitem:getBodyLocation()] = loopitem; --body location is a key.
+        local itemBodyLocation = loopitem:getBodyLocation();
+        local shouldBeDisplayed = loopitem:IsClothing() or itemBodyLocation and (itemBodyLocation ~= "");
+
+        if loopitem:isEquipped() and shouldBeDisplayed then
+            currentlyEquipped.items[itemBodyLocation] = loopitem; --body location is a key.
             currentlyEquipped.count = currentlyEquipped.count + 1;
         end
     end
@@ -97,60 +100,114 @@ function myClothingUI:update()
 
 end
 
+-- returns index of key for a single bodyLocation in a clothingCategory. The location is used to draw the items in predefined order.
+local function getBodyLocationIndex(bodyLocations, bodyLocation)
+
+    local location = 0;
+    for key, value in pairs(bodyLocations) do
+        if key == bodyLocation then
+            return location;
+        else
+            location = location + 1;
+        end
+    end
+    return location;
+
+end
+
+-- returns category and and locationIndex for a single bodyLocation
 function myClothingUI:getClothingItemCategory(itemBodyLocation)
 
     local itemCategory = nil;
+    local locationIdx = 0;
 
     -- find assigned category to this body location
     for k, v in pairs(clothingCategories) do
         if v[itemBodyLocation] then
             itemCategory = k;
+            locationIdx = getBodyLocationIndex(v,itemBodyLocation);
             break;
         end;
     end
 
-    return itemCategory;
+    return locationIdx, itemCategory;
 
 end
 
-function myClothingUI:drawButtonsFromItems(itemSet,itemCount)
-    print("/////////redrawing//////////");
+-- adds unknown bodyLocation to one of the categories.
+local function addClothingCategory(category, bodyLocation, inClothingCategories)
+    if inClothingCategories[category] then
+        inClothingCategories[category][bodyLocation] = true;
+    end
+end
+
+--- redraw buttons on instance object/main window
+function myClothingUI:drawButtonsFromItems(itemSet, itemCount)
+    print("CUI - redrawing buttons from equipped items");
     -- create mySlotIstance for each clothing item category
     myClothingUI:removeItemButtons();
     instance.displayedSlots = {};
     instance.itemCount = itemCount;
-    local idx = 0;
 
     -- init category indexes - store position of displayed button for this category
     local categoryIdx = {};
     for k, v in pairs(clothingCategories) do
-       categoryIdx[k] = 1;
+        categoryIdx[k] = 1;
     end
 
     -- handle drawing of item categories
     local itemBodyLocation = {};
+    local sortedItems = {};
 
     for k, item in pairs(itemSet) do
 
         itemBodyLocation = item:getBodyLocation();
+        local locationIndex = 0;
 
         -- decide master category for this item's location
-        local itemCategory = myClothingUI:getClothingItemCategory(itemBodyLocation);
+        local locationIndex, itemCategory = myClothingUI:getClothingItemCategory(itemBodyLocation);
 
-        -- choose where to draw based on category.
-        if itemCategory ~= nil then
-            print("drawing "..item:getDisplayName().." on slot "..itemCategory);
-            local category = clothingCategories[itemCategory];
-            local categoryRow = category["displayRow"];            
-            instance.displayedSlots[k] =  myClothingSlot:new(((config.slot_button_horizontal_spacing + config.slot_button_size) * categoryIdx[itemCategory]) + config.slot_button_size +  buttonHorizontalOffset, (categoryRow * (config.slot_button_vertical_spacing  + config.slot_button_size)) + config.slot_button_size / 2 + config.slot_button_vertical_spacing  + buttonVerticalOffset, config.slot_button_size, config.slot_button_size, itemBodyLocation, item);
-            instance.displayedSlots[k].item = item;
-            instance:addChild(instance.displayedSlots[k]);
-            categoryIdx[itemCategory] = categoryIdx[itemCategory] + 1;
-        else    -- else category unknown
-            print("category unknown, item: "..item:getDisplayName())
-            instance.displayedSlots[k] =  myClothingSlot:new(20, 20, 50, 50, itemBodyLocation, item);
-            instance.displayedSlots[k].item = item;      
+        -- if category of item's bodyLocation is unknown, add the bodyLocation to "ACC" category to show it somewhere...
+        if itemCategory == nil then
+            print("CUI - category unknown, item: " .. item:getDisplayName())
+            addClothingCategory("ACC", itemBodyLocation, clothingCategories); -- force add the category to ACC
+            locationIndex, itemCategory = myClothingUI:getClothingItemCategory(itemBodyLocation); -- get the category again
         end
+
+        table.insert(sortedItems, {
+            index = locationIndex,
+            category = itemCategory,
+            itemData = item,
+            bodyLocation = itemBodyLocation
+        })
+    end
+
+    -- we must sort the sortedItems table
+    local sortFunc = function(a, b)
+        return a.index < b.index
+    end
+    table.sort(sortedItems, sortFunc);
+
+    -- deal with sorted items
+    for k, v in pairs(sortedItems) do
+        print("CUI - drawing sorted idx:" .. v.index .. " category:" .. v.category .. " item:" ..
+                  v.itemData:getDisplayName());
+
+        local category = clothingCategories[v.category];
+        local categoryRow = category["displayRow"];
+
+        local xpos = ((config.slot_button_horizontal_spacing + config.slot_button_size) * categoryIdx[v.category]) +
+                         config.slot_button_size + buttonHorizontalOffset;
+        local ypos = (categoryRow * (config.slot_button_vertical_spacing + config.slot_button_size)) +
+                         config.slot_button_size / 2 + config.slot_button_vertical_spacing + buttonVerticalOffset;
+
+        instance.displayedSlots[v.bodyLocation] = myClothingSlot:new(xpos, ypos, config.slot_button_size,
+            config.slot_button_size, v.bodyLocation, v.itemData);
+
+        instance.displayedSlots[v.bodyLocation].item = v.itemData;
+        instance:addChild(instance.displayedSlots[v.bodyLocation]);
+        categoryIdx[v.category] = categoryIdx[v.category] + 1;
+
     end
 
 end
@@ -171,7 +228,6 @@ end
 
 function myClothingUI:handleToggle()
 
-    print(self:getIsVisible());
     if self:getIsVisible() then
         self:setVisible(false);
     else
@@ -207,14 +263,14 @@ end
 function myClothingUI.onMainButtonClicked()
 
     if instance == nil then
-        print("window not initialized - create new window")
+        print("CUI - window not initialized - create new window")
         instance = myClothingUI:new(loadedParams["instance"].x, loadedParams["instance"].y, 8 * config.slot_button_size,
             9 * (config.slot_button_vertical_spacing + config.slot_button_size));
         instance:addToUIManager();
         instance.itemCount = 0;
         instance:setTitle(getText("UI_CUI_window_title"));
     else
-        print("window exists - handle toggling")
+        print("CUI - window exists - handle toggling")
         instance:handleToggle();
         instance.itemCount = 0; -- setting to zero forces update if player wears any clothing
     end
@@ -238,8 +294,8 @@ function myClothingUI:onGameStart()
     toggleButton:addToUIManager();
 
     print("CUI - Create new window on game start")
-    instance = myClothingUI:new(loadedParams["instance"].x, loadedParams["instance"].y, 8 * config.slot_button_size,
-        9 * (config.slot_button_vertical_spacing + config.slot_button_size));
+    instance = myClothingUI:new(loadedParams["instance"].x, loadedParams["instance"].y, loadedParams["instance"].width,
+        loadedParams["instance"].height);
     instance:addToUIManager();
     instance.itemCount = 0;
     instance:setTitle(getText("UI_CUI_window_title"));
@@ -295,10 +351,11 @@ function myClothingUI:loadSavedParameters()
             -- parsed OK but key doesnt exists
             if not parameters["toggleButton"] or not parameters["instance"] then
                 loadDefaults = true;
-            -- both keys exists but one member is missing
-            elseif  not (parameters["toggleButton"].x and parameters["toggleButton"].y and parameters["instance"].x and parameters["instance"].y)    then
+                -- both keys exists but any member is missing
+            elseif not (parameters["toggleButton"].x and parameters["toggleButton"].y and parameters["instance"].x and
+                parameters["instance"].y and parameters["instance"].width and parameters["instance"].height) then
                 loadDefaults = true;
-            end;
+            end
         end
 
     else
@@ -315,7 +372,9 @@ function myClothingUI:loadSavedParameters()
         };
         parameters["instance"] = {
             x = 300,
-            y = 300
+            y = 300,
+            width = 8 * config.slot_button_size,
+            height = 9 * (config.slot_button_vertical_spacing + config.slot_button_size)
         };
     end
 
@@ -331,7 +390,10 @@ function myClothingUI:createSavedParameters()
     local parameters = {};
 
     if toggleButton then
-        parameters["toggleButton"] = {x = toggleButton.x, y = toggleButton.y};
+        parameters["toggleButton"] = {
+            x = toggleButton.x,
+            y = toggleButton.y
+        };
     else
         parameters["toggleButton"] = {
             x = 500,
@@ -340,14 +402,21 @@ function myClothingUI:createSavedParameters()
     end
 
     if instance then
-        parameters["instance"] = {x = instance.x, y = instance.y};
+        parameters["instance"] = {
+            x = instance.x,
+            y = instance.y,
+            width = instance.width,
+            height = instance.height
+        };
     else
         parameters["instance"] = {
             x = 300,
-            y = 300
+            y = 300,
+            width = instance.width,
+            height = instance.height
         };
     end
-    
+
     return parameters
 
 end
