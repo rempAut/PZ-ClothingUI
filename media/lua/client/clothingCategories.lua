@@ -98,28 +98,28 @@ clothingCategories["HEAD"]["LeftEye"] = true;
 clothingCategories["HEAD"]["RightEye"] = true;
 
 -- torso category
-clothingCategories["BODY"]["Jacket"] = true;
-clothingCategories["BODY"]["FullTop"] = true;
-clothingCategories["BODY"]["JacketHat"] = true;
-clothingCategories["BODY"]["Sweater"] = true;
-clothingCategories["BODY"]["TorsoExtra"] = true;
-clothingCategories["BODY"]["SweaterHat"] = true;
+clothingCategories["BODY"]["TankTop"] = true;
+clothingCategories["BODY"]["Tshirt"] = true;
 clothingCategories["BODY"]["ShortSleeveShirt"] = true;
 clothingCategories["BODY"]["Shirt"] = true;
-clothingCategories["BODY"]["Tshirt"] = true;
-clothingCategories["BODY"]["TankTop"] = true;
+clothingCategories["BODY"]["Jacket"] = true;
+clothingCategories["BODY"]["JacketHat"] = true;
+clothingCategories["BODY"]["Sweater"] = true;
+clothingCategories["BODY"]["SweaterHat"] = true;
+clothingCategories["BODY"]["Dress"] = true;
+clothingCategories["BODY"]["FullTop"] = true;
+clothingCategories["BODY"]["TorsoExtra"] = true;
 clothingCategories["BODY"]["Torso1Legs1"] = true;
 clothingCategories["BODY"]["BathRobe"] = true;
 clothingCategories["BODY"]["FullSuit"] = true;
 clothingCategories["BODY"]["FullSuitHead"] = true;
-clothingCategories["BODY"]["Dress"] = true;
 clothingCategories["BODY"]["Scarf"] = true;
 
 -- underwear
-clothingCategories["UNDIES"]["Underwear"] = true;
 clothingCategories["UNDIES"]["UnderwearInner"] = true;
-clothingCategories["UNDIES"]["UnderwearTop"] = true;
+clothingCategories["UNDIES"]["Underwear"] = true;
 clothingCategories["UNDIES"]["UnderwearBottom"] = true;
+clothingCategories["UNDIES"]["UnderwearTop"] = true;
 clothingCategories["UNDIES"]["UnderwearExtra1"] = true;
 clothingCategories["UNDIES"]["UnderwearExtra2"] = true;
 
@@ -134,8 +134,8 @@ clothingCategories["LEGS"]["Pants"] = true;
 clothingCategories["LEGS"]["Skirt"] = true;
 
 -- feet category
-clothingCategories["FEET"]["Shoes"] = true;
 clothingCategories["FEET"]["Socks"] = true;
+clothingCategories["FEET"]["Shoes"] = true;
 
 -- accessories
 clothingCategories["ACC"]["Belt"] = true;
@@ -180,22 +180,27 @@ clothingCategories["TRINKET"]["BellyButton"] = true;
         ShinPlateRight
         SpecialMask
 ]] -- 
+
+clothingCategories["HEAD"]["SpecialMask"] = true;
+
 clothingCategories["ACC"]["SpecialBelt"] = true;
 clothingCategories["ACC"]["SwordSheath"] = true;
+clothingCategories["ACC"]["waistbags"] = true;
+
 clothingCategories["BODY"]["TorsoRig"] = true;
 clothingCategories["BODY"]["TorsoRig2"] = true;
-clothingCategories["ACC"]["waistbags"] = true;
-clothingCategories["HANDS"]["UpperArmLeft"] = true;
-clothingCategories["HANDS"]["UpperArmRight"] = true;
-clothingCategories["LEGS"]["ThighLeft"] = true;
-clothingCategories["LEGS"]["ThighRight"] = true;
 clothingCategories["BODY"]["LowerBody"] = true;
 clothingCategories["BODY"]["Pauldrons"] = true;
+
 clothingCategories["HANDS"]["HandPlateLeft"] = true;
 clothingCategories["HANDS"]["HandPlateRight"] = true;
+clothingCategories["HANDS"]["UpperArmLeft"] = true;
+clothingCategories["HANDS"]["UpperArmRight"] = true;
+
 clothingCategories["LEGS"]["ShinPlateLeft"] = true;
 clothingCategories["LEGS"]["ShinPlateRight"] = true;
-clothingCategories["HEAD"]["SpecialMask"] = true;
+clothingCategories["LEGS"]["ThighLeft"] = true;
+clothingCategories["LEGS"]["ThighRight"] = true;
 
 
 return clothingCategories;

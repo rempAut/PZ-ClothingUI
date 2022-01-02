@@ -100,35 +100,53 @@ function myClothingUI:update()
 
 end
 
+-- returns index of key for a single bodyLocation in a clothingCategory. The location is used to draw the items in predefined order.
+local function getBodyLocationIndex(bodyLocations, bodyLocation)
+
+    local location = 0;
+    for key, value in pairs(bodyLocations) do
+        if key == bodyLocation then
+            return location;
+        else
+            location = location + 1;
+        end
+    end
+
+end
+
+-- returns category and and locationIndex for a single bodyLocation
 function myClothingUI:getClothingItemCategory(itemBodyLocation)
 
     local itemCategory = nil;
+    local locationIdx = 0;
 
     -- find assigned category to this body location
     for k, v in pairs(clothingCategories) do
         if v[itemBodyLocation] then
             itemCategory = k;
+            locationIdx = getBodyLocationIndex(v,itemBodyLocation);
             break;
         end;
     end
 
-    return itemCategory;
+    return locationIdx, itemCategory;
 
 end
 
+-- adds unknown bodyLocation to one of the categories.
 local function addClothingCategory(category, bodyLocation, inClothingCategories)
     if inClothingCategories[category] then
         inClothingCategories[category][bodyLocation] = true;
     end
 end
 
+--- redraw buttons on instance object/main window
 function myClothingUI:drawButtonsFromItems(itemSet, itemCount)
-    print("/////////redrawing//////////");
+    print("CUI - redrawing buttons from equipped items");
     -- create mySlotIstance for each clothing item category
     myClothingUI:removeItemButtons();
     instance.displayedSlots = {};
     instance.itemCount = itemCount;
-    local idx = 0;
 
     -- init category indexes - store position of displayed button for this category
     local categoryIdx = {};
@@ -138,34 +156,56 @@ function myClothingUI:drawButtonsFromItems(itemSet, itemCount)
 
     -- handle drawing of item categories
     local itemBodyLocation = {};
+    local sortedItems = {};
 
     for k, item in pairs(itemSet) do
 
         itemBodyLocation = item:getBodyLocation();
+        local locationIndex = 0;
 
         -- decide master category for this item's location
-        local itemCategory = myClothingUI:getClothingItemCategory(itemBodyLocation);
+        local locationIndex, itemCategory = myClothingUI:getClothingItemCategory(itemBodyLocation);
 
-        -- choose where to draw based on category.
-        if itemCategory ~= nil then
-            print("drawing " .. item:getDisplayName() .. " on slot " .. itemCategory);
-        else -- else category unknown
-            print("category unknown, item: " .. item:getDisplayName())
-            addClothingCategory("ACC", itemBodyLocation, clothingCategories);-- force add the category to ACC
-            itemCategory = myClothingUI:getClothingItemCategory(itemBodyLocation); -- get the category again
+        -- if category of item's bodyLocation is unknown, add the bodyLocation to "ACC" category to show it somewhere...
+        if itemCategory == nil then
+            print("CUI - category unknown, item: " .. item:getDisplayName())
+            addClothingCategory("ACC", itemBodyLocation, clothingCategories); -- force add the category to ACC
+            locationIndex, itemCategory = myClothingUI:getClothingItemCategory(itemBodyLocation); -- get the category again
         end
 
-        local category = clothingCategories[itemCategory];
+        table.insert(sortedItems, {
+            index = locationIndex,
+            category = itemCategory,
+            itemData = item,
+            bodyLocation = itemBodyLocation
+        })
+    end
+
+    -- we must sort the sortedItems table
+    local sortFunc = function(a, b)
+        return a.index < b.index
+    end
+    table.sort(sortedItems, sortFunc);
+
+    -- deal with sorted items
+    for k, v in pairs(sortedItems) do
+        print("CUI - drawing sorted idx:" .. v.index .. " category:" .. v.category .. " item:" ..
+                  v.itemData:getDisplayName());
+
+        local category = clothingCategories[v.category];
         local categoryRow = category["displayRow"];
-        instance.displayedSlots[k] = myClothingSlot:new(((config.slot_button_horizontal_spacing +
-                                                            config.slot_button_size) * categoryIdx[itemCategory]) +
-                                                            config.slot_button_size + buttonHorizontalOffset,
-            (categoryRow * (config.slot_button_vertical_spacing + config.slot_button_size)) + config.slot_button_size /
-                2 + config.slot_button_vertical_spacing + buttonVerticalOffset, config.slot_button_size,
-            config.slot_button_size, itemBodyLocation, item);
-        instance.displayedSlots[k].item = item;
-        instance:addChild(instance.displayedSlots[k]);
-        categoryIdx[itemCategory] = categoryIdx[itemCategory] + 1;
+
+        local xpos = ((config.slot_button_horizontal_spacing + config.slot_button_size) * categoryIdx[v.category]) +
+                         config.slot_button_size + buttonHorizontalOffset;
+        local ypos = (categoryRow * (config.slot_button_vertical_spacing + config.slot_button_size)) +
+                         config.slot_button_size / 2 + config.slot_button_vertical_spacing + buttonVerticalOffset;
+
+        instance.displayedSlots[v.bodyLocation] = myClothingSlot:new(xpos, ypos, config.slot_button_size,
+            config.slot_button_size, v.bodyLocation, v.itemData);
+
+        instance.displayedSlots[v.bodyLocation].item = v.itemData;
+        instance:addChild(instance.displayedSlots[v.bodyLocation]);
+        categoryIdx[v.category] = categoryIdx[v.category] + 1;
 
     end
 
@@ -187,7 +227,6 @@ end
 
 function myClothingUI:handleToggle()
 
-    print(self:getIsVisible());
     if self:getIsVisible() then
         self:setVisible(false);
     else
@@ -223,14 +262,14 @@ end
 function myClothingUI.onMainButtonClicked()
 
     if instance == nil then
-        print("window not initialized - create new window")
+        print("CUI - window not initialized - create new window")
         instance = myClothingUI:new(loadedParams["instance"].x, loadedParams["instance"].y, 8 * config.slot_button_size,
             9 * (config.slot_button_vertical_spacing + config.slot_button_size));
         instance:addToUIManager();
         instance.itemCount = 0;
         instance:setTitle(getText("UI_CUI_window_title"));
     else
-        print("window exists - handle toggling")
+        print("CUI - window exists - handle toggling")
         instance:handleToggle();
         instance.itemCount = 0; -- setting to zero forces update if player wears any clothing
     end
