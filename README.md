@@ -7,7 +7,7 @@ This mod was created to provide a better overview of equipped items. Often, it w
 If you have any issue or idea, feel free to create a ticket under [issues](https://github.com/rempAut/PZ-ClothingUI/issues)
 
 ## Options / configuration
-To be able to configure the mod, you need to install Mod Options mod https://steamcommunity.com/sharedfiles/filedetails/?id=2169435993&searchtext=mod+options
+To be able to configure the mod, you need to install [Mod Options mod](https://steamcommunity.com/sharedfiles/filedetails/?id=2169435993).
 
 1. Start the game and enable the Options mod (Don't forget to enable it also on your save file)
 2. Load into Single Player Game
@@ -53,14 +53,16 @@ This mod doesn't require any special settings and is setup as any other mod on m
 In case you don't know how to work with GIT, please create a new [ISSUE](https://github.com/rempAut/PZ-ClothingUI/issues) / [thread on steam](https://steamcommunity.com/sharedfiles/filedetails/discussions/2695471997) with translated file and we can add that file to the project.
 
 ## How to report issues
-1. start the game with -debug parameter
+1. Start the game with -debug parameter
 2. When ingame, press F11 to open debug console.
 3. Make sure "General" is included in the log file
 ![image](https://user-images.githubusercontent.com/80215310/147794177-a65f8d26-a3c9-412d-b7c6-3602b15e7745.png)
 4. Close the debug console and replicate your errors.
 5. Close the game
 6. Find the log in C:\Users\[username]\Zomboid\console.txt and upload it together with your issue
+7. List the name of your additional mods or any other technical information which can help debug and reproduce the issue, if possible try to disable your other mods to pin point the problem. 
 
+For reporting the problems use GitHub issues or [discussion](https://steamcommunity.com/sharedfiles/filedetails/discussions/2695471997) on Steam. Do NOT use comments on the mod page. Any comments saying just "doesn't work" will be ignored. We don't have crystal ball to see your spefic setup...
 
 ## Manual Inslation
 - Select the release https://github.com/rempAut/PZ-ClothingUI/releases
