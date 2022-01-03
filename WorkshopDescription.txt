@@ -1,0 +1,36 @@
+[h1]Info[/h1]
+This mode provides alternative graphical UI for equipped clothing items.
+
+[h1]Features[/h1]
+[list]
+    [*] Draggable button to display equipped items in an overview window (drag by grey border)
+    [*] Items are displayed in categories (right click category button or item icon for equip possibilities)
+    [*] Left mouse double click on item icon for quick unequip 
+    [*] Item tooltips on mouse hover
+    [*] MOD OPTIONS now supported to allow customization. See [https://github.com/rempAut/PZ-ClothingUI#options--configuration]here[/url].
+
+[/list]
+
+[h2]Multiplayer[/h2]
+Multiplayer is supported if server has allowed this mode. 
+See https://github.com/rempAut/PZ-ClothingUI#multiplayer-support
+
+[h2]Languages[/h2]
+Translations are now possible. Supported languages:
+[list]
+    [*] English (EN)
+    [*] Russian (RU)
+    [*] Chinese (CN)
+[/list]
+
+The mode is not text-heavy, so if you want to help with translating, see https://github.com/rempAut/PZ-ClothingUI#how-to-add-translation
+
+[h2]Development[/h2]
+See the dev progress here https://github.com/rempAut/PZ-ClothingUI
+If you want to report a [b]BUG[/b] or make a [b]Feature request[/b], please consider using github. Otherwise, you can still use discussions here on Steam.
+
+[h2]Manual installation[/h2]
+You can find and download all releases [url=https://github.com/rempAut/PZ-ClothingUI/releases]here[/url].
+
+Workshop ID: 2695471997
+Mod ID: myclothinguimod
