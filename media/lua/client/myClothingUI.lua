@@ -102,7 +102,7 @@ function myClothingUI:update()
 end
 
 -- returns index of key for a single bodyLocation in a clothingCategory. The location is used to draw the items in predefined order.
-local function getBodyLocationIndex(bodyLocations, bodyLocation)
+function myClothingUI:getBodyLocationIndex(bodyLocations, bodyLocation)
 
     local location = 0;
     for key, value in pairs(bodyLocations) do
@@ -126,7 +126,7 @@ function myClothingUI:getClothingItemCategory(itemBodyLocation)
     for k, v in pairs(clothingCategories) do
         if v[itemBodyLocation] then
             itemCategory = k;
-            locationIdx = getBodyLocationIndex(v,itemBodyLocation);
+            locationIdx = myClothingUI:getBodyLocationIndex(v,itemBodyLocation);
             break;
         end;
     end
