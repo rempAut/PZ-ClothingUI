@@ -1,0 +1,12 @@
+IGUI_FR = {
+   IGUI_CUI_Display_slot_label  = "Afficher les labels des emplacements",
+   IGUI_CUI_Display_slot_label_tooltip = "Affiche ou masque le label des emplacements",
+   IGUI_CUI_Slot_label_margin = "Marge des labels d'emplacement",
+   IGUI_CUI_Slot_label_margin_tooltip = "Distance entre le label et l'icone. Augmenter pour monter",
+   IGUI_CUI_Slot_horizontal_spacing = "Espacement horizontal des emplacements",
+   IGUI_CUI_Slot_horizontal_spacing_tooltip = "Distance horizontale entre les emplacements.",
+   IGUI_CUI_Slot_vertical_spacing = "Espacement vertical des emplacements",
+   IGUI_CUI_Slot_vertical_spacing_tooltip = "Distance verticale entre les emplacements.",
+   IGUI_CUI_Slot_button_size = "Taille de l'icône de l'emplacement",
+   IGUI_CUI_Slot_button_size_tooltip = "Taille du bouton"
+}
