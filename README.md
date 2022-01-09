@@ -52,7 +52,8 @@ This mod doesn't require any special settings and is setup as any other mod on m
 
 In case you don't know how to work with GIT, please create a new [ISSUE](https://github.com/rempAut/PZ-ClothingUI/issues) / [thread on steam](https://steamcommunity.com/sharedfiles/filedetails/discussions/2695471997) with translated file and we can add that file to the project.
 
-Note: All the translation files with special characters needs to be saved with encoding Windows-1252
+Note: All the translation files with special characters needs to be saved with encoding Windows-1252 or similar. See this list for the PZ translation files encoding 
+https://github.com/TheIndieStone/ProjectZomboidTranslations/blob/master/.gitattributes
 
 ## How to report issues
 1. Start the game with -debug parameter
