@@ -4,7 +4,7 @@ UI_DE = {
 
     -- Category Buttons
     UI_CUI_Category_HEAD = "KOPF",
-    UI_CUI_Category_UNDIES = "UNTERWÄSCHE",
+    UI_CUI_Category_UNDIES = "WÄSCHE",
     UI_CUI_Category_BODY = "KÖRPER",
     UI_CUI_Category_HANDS = "HÄNDE",
     UI_CUI_Category_LEGS = "BEINE",
@@ -93,5 +93,5 @@ UI_DE = {
     UI_CUI_HandPlateRight = "Platte R",
     UI_CUI_ShinPlateLeft = "Platte L",
     UI_CUI_ShinPlateRight = "Platte R",
-    UI_CUI_SpecialMask = "SpezMaske",
+    UI_CUI_SpecialMask = "SpezMaske"
 }
