@@ -1,0 +1,12 @@
+IGUI_TR = {
+   IGUI_CUI_Display_slot_label  = "Elbise slot etiketlerinin gösterimi",
+   IGUI_CUI_Display_slot_label_tooltip = "Gizli slot etiketlerini göster ya da gizle",
+   IGUI_CUI_Slot_label_margin = "Elbise slot etiketinin boşluğu",
+   IGUI_CUI_Slot_label_margin_tooltip = "Etiket ve simge arasındaki boşluk. Arttırmak için yükselt",
+   IGUI_CUI_Slot_horizontal_spacing = "Elbise slotunun yatay boşluğu",
+   IGUI_CUI_Slot_horizontal_spacing_tooltip = "Slot simgeleri arasındaki yatay mesafe.",
+   IGUI_CUI_Slot_vertical_spacing = "Elbise slotunun dikey boşluğu",
+   IGUI_CUI_Slot_vertical_spacing_tooltip = "Slot simgeleri arasındaki dikey mesafe",
+   IGUI_CUI_Slot_button_size = "Elbise slotunun simge boyutu",
+   IGUI_CUI_Slot_button_size_tooltip = "Butonun boyutu"
+}
