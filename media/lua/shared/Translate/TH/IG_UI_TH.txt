@@ -1,0 +1,13 @@
+IGUI_TH = {
+   IGUI_CUI_Display_slot_label  = "แสดงป้ายกำกับช่องแสดงเครื่องแต่งกาย",
+   IGUI_CUI_Display_slot_label_tooltip = "แสดงหรือซ่อนป้ายกำกับ",
+   IGUI_CUI_Slot_label_margin = "ระยะห่างระหว่างป้ายกำกับช่องแสดงเครื่องแต่งกาย",
+   IGUI_CUI_Slot_label_margin_tooltip = "ระยะห่างระหว่างป้ายกำกับช่องแสดงเครื่องแต่งกายและไอคอน เพิ่มค่าเพื่อเลื่อนขึ้น",
+   IGUI_CUI_Slot_horizontal_spacing = "ระยะห่างช่องเครื่องแต่งกายในแนวนอน",
+   IGUI_CUI_Slot_horizontal_spacing_tooltip = "ช่องว่างในแนวนอนระหว่างไอคอนช่องแสดงเครื่องแต่งกาย",
+   IGUI_CUI_Slot_vertical_spacing = "ระยะห่างช่องเครื่องแต่งกายในแนวตั้ง",
+   IGUI_CUI_Slot_vertical_spacing_tooltip = "ช่องว่างในแนวตั้งระหว่างไอคอนช่องแสดงเครื่องแต่งกาย",
+   IGUI_CUI_Slot_button_size = "ขนาดไอคอนช่องแสดงเครื่องแต่งกาย",
+   IGUI_CUI_Slot_button_size_tooltip = "ขนาดของไอคอนในช่องแสดงเครื่องแต่งกาย"
+}
+
