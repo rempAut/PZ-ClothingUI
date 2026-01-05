@@ -1,14 +1,27 @@
 local utils = {};
 
 function utils.getBodySlotText(bodySlot)
+    local slotId
 
-    local localizedText = getText("UI_CUI_" .. bodySlot);
-    if string.find(localizedText, "UI_CUI_") then
-        return bodySlot;
+    -- BodyLocation object (most common in B42 UI)
+    if bodySlot.getId then
+        slotId = bodySlot:getId()
+
+    -- ItemBodyLocation enum
     else
-        return localizedText;
+        -- tostring(ItemBodyLocation.BELT) -> "BELT"
+        slotId = tostring(bodySlot)
     end
 
+    local key = "UI_CUI_" .. slotId
+    local text = getText(key)
+
+    -- If missing localization, return the raw id
+    if text == key then
+        return slotId
+    end
+
+    return text
 end
 
 function utils.getCategoryButtonText(category)
