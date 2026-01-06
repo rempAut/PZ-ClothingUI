@@ -5,6 +5,7 @@ json = require "libs/json"
 local config = require "config";
 local options = require "modOptions/options"
 local clothingCategories = require "clothingCategories";
+local IBL = ItemBodyLocation
 
 local FONT_HGT_SMALL = getTextManager():getFontHeight(UIFont.Small)
 local FONT_HGT_MEDIUM = getTextManager():getFontHeight(UIFont.Medium)
@@ -64,7 +65,7 @@ function myClothingUI:update()
     for i = 0, playerItems:size() - 1 do
         local loopitem = playerItems:get(i);
         local itemBodyLocation = loopitem:getBodyLocation();
-        local isBandage = itemBodyLocation == "Bandage" or itemBodyLocation == "ZedDmg" or itemBodyLocation == "Wound";
+        local isBandage = itemBodyLocation == IBL.BANDAGE or itemBodyLocation == IBL.ZED_DMG or itemBodyLocation == IBL.WOUND;
         local shouldBeDisplayed = ((loopitem:IsClothing()) or (itemBodyLocation and (itemBodyLocation ~= ""))) and
                                       not isBandage;
 
