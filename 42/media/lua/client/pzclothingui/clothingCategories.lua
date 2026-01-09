@@ -35,6 +35,7 @@ clothingCategories["HEAD"][IBL.MASK] = true
 clothingCategories["HEAD"][IBL.EYES] = true
 clothingCategories["HEAD"][IBL.LEFT_EYE] = true
 clothingCategories["HEAD"][IBL.RIGHT_EYE] = true
+clothingCategories["HEAD"][IBL.FULL_SUIT_HEAD_SCBA] = true
 
 -- torso category
 clothingCategories["BODY"][IBL.TANK_TOP] = true
@@ -53,9 +54,22 @@ clothingCategories["BODY"][IBL.BATH_ROBE] = true
 clothingCategories["BODY"][IBL.FULL_SUIT] = true
 clothingCategories["BODY"][IBL.FULL_SUIT_HEAD] = true
 clothingCategories["BODY"][IBL.SCARF] = true
+clothingCategories["BODY"][IBL.BOILERSUIT] = true
+clothingCategories["BODY"][IBL.CUIRASS] = true
+clothingCategories["BODY"][IBL.JACKET_BULKY] = true
+clothingCategories["BODY"][IBL.JACKET_DOWN] = true
+clothingCategories["BODY"][IBL.JACKET_HAT_BULKY] = true
+clothingCategories["BODY"][IBL.JACKET_SUIT] = true
+clothingCategories["BODY"][IBL.JERSEY] = true
+clothingCategories["BODY"][IBL.LONG_DRESS] = true
+clothingCategories["BODY"][IBL.VEST_TEXTURE] = true
+clothingCategories["BODY"][IBL.TORSO_EXTRA_VEST] = true
+clothingCategories["BODY"][IBL.TORSO_EXTRA_VEST_BULLET] = true
+clothingCategories["BODY"][IBL.SPORT_SHOULDERPAD] = true
+clothingCategories["BODY"][IBL.SPORT_SHOULDERPAD_ON_TOP] = true
 
 -- underwear
-clothingCategories["UNDIES"][IBL.TORSO1] = true -- UnderwearInner
+clothingCategories["UNDIES"][IBL.TORSO1] = true
 clothingCategories["UNDIES"][IBL.UNDERWEAR] = true
 clothingCategories["UNDIES"][IBL.UNDERWEAR_BOTTOM] = true
 clothingCategories["UNDIES"][IBL.UNDERWEAR_TOP] = true
@@ -64,17 +78,43 @@ clothingCategories["UNDIES"][IBL.UNDERWEAR_EXTRA2] = true
 
 -- hands category
 clothingCategories["HANDS"][IBL.HANDS] = true
+clothingCategories["HANDS"][IBL.HANDS_LEFT] = true
+clothingCategories["HANDS"][IBL.HANDS_RIGHT] = true
 clothingCategories["HANDS"][IBL.RIGHT_WRIST] = true
 clothingCategories["HANDS"][IBL.LEFT_WRIST] = true
+clothingCategories["HANDS"][IBL.LEFT_ARM] = true
+clothingCategories["HANDS"][IBL.RIGHT_ARM] = true
+clothingCategories["HANDS"][IBL.FORE_ARM_LEFT] = true
+clothingCategories["HANDS"][IBL.FORE_ARM_RIGHT] = true
+clothingCategories["HANDS"][IBL.SHOULDERPAD_LEFT] = true
+clothingCategories["HANDS"][IBL.SHOULDERPAD_RIGHT] = true
+clothingCategories["HANDS"][IBL.SHOULDER_HOLSTER] = true
 
 -- legs category
 clothingCategories["LEGS"][IBL.LEGS1] = true
+clothingCategories["LEGS"][IBL.LEGS5] = true
+clothingCategories["LEGS"][IBL.CALF_LEFT] = true
+clothingCategories["LEGS"][IBL.CALF_LEFT_TEXTURE] = true
+clothingCategories["LEGS"][IBL.CALF_RIGHT] = true
+clothingCategories["LEGS"][IBL.CALF_RIGHT_TEXTURE] = true
+clothingCategories["LEGS"][IBL.KNEE_LEFT] = true
+clothingCategories["LEGS"][IBL.KNEE_RIGHT] = true
+clothingCategories["LEGS"][IBL.THIGH_LEFT] = true
+clothingCategories["LEGS"][IBL.THIGH_RIGHT] = true
 clothingCategories["LEGS"][IBL.PANTS] = true
 clothingCategories["LEGS"][IBL.SKIRT] = true
+clothingCategories["LEGS"][IBL.LONG_SKIRT] = true
+clothingCategories["LEGS"][IBL.SHORTS_SHORT] = true
+clothingCategories["LEGS"][IBL.SHORT_PANTS] = true
+clothingCategories["LEGS"][IBL.PANTS_EXTRA] = true
+clothingCategories["LEGS"][IBL.PANTS_SKINNY] = true
+
 
 -- feet category
 clothingCategories["FEET"][IBL.SOCKS] = true
 clothingCategories["FEET"][IBL.SHOES] = true
+clothingCategories["FEET"][IBL.GAITER_LEFT] = true
+clothingCategories["FEET"][IBL.GAITER_RIGHT] = true
 
 -- accessories
 clothingCategories["ACC"][IBL.BELT] = true
@@ -83,6 +123,13 @@ clothingCategories["ACC"][IBL.AMMO_STRAP] = true
 clothingCategories["ACC"][IBL.FANNY_PACK_FRONT] = true
 clothingCategories["ACC"][IBL.FANNY_PACK_BACK] = true
 clothingCategories["ACC"][IBL.TAIL] = true
+clothingCategories["ACC"][IBL.WEBBING] = true
+clothingCategories["ACC"][IBL.SATCHEL] = true
+clothingCategories["ACC"][IBL.ANKLE_HOLSTER] = true
+clothingCategories["ACC"][IBL.SCBA] = true
+clothingCategories["ACC"][IBL.SCBANOTANK] = true
+clothingCategories["ACC"][IBL.CODPIECE] = true
+clothingCategories["ACC"][IBL.GORGET] = true
 
 -- jewels
 clothingCategories["TRINKET"][IBL.NECKLACE] = true
