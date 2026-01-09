@@ -1,5 +1,5 @@
 UI_FR = {
-    UI_CUI_window_title = "Objets équipés",
+    UI_CUI_window_title = "Objets Ã©quipÃ©s",
     UI_CUI_no_items_avaliable = "Aucun objet disponible dans l'inventaire",
  
     -- Category Buttons
@@ -45,7 +45,7 @@ UI_FR = {
     UI_CUI_RightEye = "Oeil D",
     UI_CUI_Hands = "Mains",
     UI_CUI_Scarf = "Echarpe",
-    UI_CUI_Underwear = "Sous-vétements",
+    UI_CUI_Underwear = "Sous-vÃªtements",
     UI_CUI_MakeUp_FullFace = "MFace",
     UI_CUI_MakeUp_Eyes = "MYeux",
     UI_CUI_MakeUp_EyesShadow = "MYeuxO",
@@ -60,7 +60,7 @@ UI_FR = {
     UI_CUI_ShortSleeveShirt = "Chemisette",
     UI_CUI_Shirt = "Chemise",
     UI_CUI_Tshirt = "Tshirt",
-    UI_CUI_TankTop = "Débardeur",
+    UI_CUI_TankTop = "DÃ©bardeur",
     UI_CUI_Socks = "Chaussettes",
     UI_CUI_UndInn = "Dessous",
     UI_CUI_Shoes = "Chaussures",
@@ -73,7 +73,7 @@ UI_FR = {
     UI_CUI_UnderwearBottom = "DessousB",
     UI_CUI_UnderwearExtra1 = "Dessous1",
     UI_CUI_UnderwearExtra2 = "Dessous2",
-    UI_CUI_ZedDmg = "Dégats de Z",
+    UI_CUI_ZedDmg = "DÃ©gÃ¢ts de Z",
     UI_CUI_Bandage = "Bandage",
     UI_CUI_Wound = "Blessure",
 

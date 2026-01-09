@@ -7,6 +7,6 @@ IGUI_FR = {
    IGUI_CUI_Slot_horizontal_spacing_tooltip = "Distance horizontale entre les emplacements.",
    IGUI_CUI_Slot_vertical_spacing = "Espacement vertical des emplacements",
    IGUI_CUI_Slot_vertical_spacing_tooltip = "Distance verticale entre les emplacements.",
-   IGUI_CUI_Slot_button_size = "Taille de l'icône de l'emplacement",
+   IGUI_CUI_Slot_button_size = "Taille de l'icÃ´ne de l'emplacement",
    IGUI_CUI_Slot_button_size_tooltip = "Taille du bouton"
 }
