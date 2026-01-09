@@ -1,10 +1,9 @@
 require "ISUI/ISCollapsableWindow"
 require "ISUI/ISPanelJoypad"
 require "ISUI/ISLabel"
-json = require "libs/json"
-local config = require "config";
-local options = require "modOptions/options"
-local clothingCategories = require "clothingCategories";
+local config = require "pzclothingui/config";
+local options = require "pzclothingui/modOptions/options"
+local clothingCategories = require "pzclothingui/clothingCategories";
 local IBL = ItemBodyLocation
 
 local FONT_HGT_SMALL = getTextManager():getFontHeight(UIFont.Small)
@@ -327,38 +326,8 @@ end
 
 function myClothingUI:loadSavedParameters()
 
-    local reader = getFileReader("clothingui.ini", false);
     local parameters = {};
-
-    local loadDefaults = false;
-
-    -- file found parse the json
-    if reader then
-        print("CUI - reading parameters from config file");
-        local line = reader:readLine();
-        reader:close();
-
-        -- we need a protection against empty file or other malformed files
-        if not line or line == nil or line == "" then
-            print("CUI - invalid parameters files");
-            loadDefaults = true;
-        else
-            parameters = json.parse(line);
-            -- parsed OK but key doesnt exists
-            if not parameters["toggleButton"] or not parameters["instance"] then
-                loadDefaults = true;
-                -- both keys exists but any member is missing
-            elseif not (parameters["toggleButton"].x and parameters["toggleButton"].y and parameters["instance"].x and
-                parameters["instance"].y and parameters["instance"].width and parameters["instance"].height) then
-                loadDefaults = true;
-            end
-        end
-
-    else
-        -- no file found, load default parameters
-        loadDefaults = true;
-        print("CUI - No parameters file found");
-    end
+    local loadDefaults = true;
 
     if loadDefaults == true then
         print("CUI - Loading default parameters");
@@ -378,60 +347,6 @@ function myClothingUI:loadSavedParameters()
 
 end
 
--- returns table with parameters
--- returns "none" if no value found.
-function myClothingUI:createSavedParameters()
-    print("CUI - Saving button locations");
-    local parameters = {};
-
-    if toggleButton then
-        parameters["toggleButton"] = {
-            x = toggleButton.x,
-            y = toggleButton.y
-        };
-    else
-        parameters["toggleButton"] = {
-            x = 500,
-            y = 500
-        };
-    end
-
-    if instance then
-        parameters["instance"] = {
-            x = instance.x,
-            y = instance.y,
-            width = instance.width,
-            height = instance.height
-        };
-    else
-        parameters["instance"] = {
-            x = 300,
-            y = 300,
-            width = instance.width,
-            height = instance.height
-        };
-    end
-
-    return parameters
-
-end
-
-function myClothingUI:onSave()
-
-    -- Check if the game window instance is created, if not it means that 
-    -- save was not triggered from the loaded game (new game route).
-    if instance then
-        -- get file
-        print("CUI - Writing button location parameters to file");
-        local writer = getFileWriter("clothingui.ini", true, false)
-
-        -- write button locations parameters
-        local savedParameters = myClothingUI:createSavedParameters();
-        writer:write(json.stringify(savedParameters));
-        writer:close();
-    end
-
-end
 
 -- check keybind for Open/Close equipped window
 local OnToggleViewKeyPressed = function(keynum)

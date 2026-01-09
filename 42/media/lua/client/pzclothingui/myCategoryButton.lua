@@ -1,5 +1,5 @@
 require "ISUI/ISButton"
-local utils = require "utils/utils"
+local utils = require "pzclothingui/utils/utils"
 
 myCategoryButton = ISButton:derive("myCategoryButton");
 

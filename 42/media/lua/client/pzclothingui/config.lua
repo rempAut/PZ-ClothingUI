@@ -18,8 +18,7 @@ There are 3 ways how the config object can be initliazed and when adding new opt
 
 
 ]] --
-local loadIniData = require "libs/options"
-local utils = require "utils/utils"
+local utils = require "pzclothingui/utils/utils"
 
 -- Config object will hold all the configs we have, we are using our own object
 -- to be independent on the options plugin. Aka our code will work even without the plugin.
@@ -97,18 +96,6 @@ local SETTINGS = {
     mod_fullname = 'PZ Clothing UI'
 }
 
--- We need to setup the values from the plugin
--- 1# Option of loading config
-local function setupConfig()
-    config.display_slot_labels = SETTINGS.options.display_slot_labels;
-    config.slot_label_margin = tonumber(SETTINGS.options_data.slot_label_margin[SETTINGS.options.slot_label_margin]);
-    config.slot_button_horizontal_spacing = tonumber(
-        SETTINGS.options_data.slot_button_horizontal_spacing[SETTINGS.options.slot_button_horizontal_spacing]);
-    config.slot_button_vertical_spacing = tonumber(SETTINGS.options_data.slot_button_vertical_spacing[SETTINGS.options
-                                                       .slot_button_vertical_spacing]);
-    config.slot_button_size = tonumber(SETTINGS.options_data.slot_button_size[SETTINGS.options.slot_button_size]);
-end
-
 -- In case the user will not have ModOptions installed - default values will work without the plugin!
 -- 2# Option of loding config
 local function setupDefaultConfig()
@@ -125,71 +112,8 @@ local function setupDefaultConfig()
 end
 
 local function triggerConfigLoad()
-    if ModOptions and ModOptions.getInstance then
-        print("CUI - ModOptions is avaliable - trying to load the data");
-        local settings = ModOptions:getInstance(SETTINGS);
-        -- In case we click onApply even ingame we want to run config setup 
-        function settings:OnApply()
-            setupConfig();
-        end
-
-        ModOptions:loadFile();
-        -- This is on the load of the game, we want to setup the config
-        setupConfig();
-    else
-        print("CUI - ModOptions not avaliable loding defaults or saved data");
-
-        -- The mod is not installed/activated, let's check if the config file exists
-        local reader = getFileReader("mods_options.ini", false)
-        if not reader then
-            -- No config file, let's load the default values
-            setupDefaultConfig()
-        else
-            -- Setup the deafult config regrardless, if we find some values we will re-write them
-            setupDefaultConfig();
-
-            -- File exists, let's close it here and load it via options function
-            reader:close()
-            local modData = loadIniData();
-            if not modData or not modData["myclothinguimod"] then
-                return;
-            end
-
-            -- #3 Option of loading config
-            local ourOptions = modData["myclothinguimod"];
-
-            if ourOptions["display_slot_labels"] then -- found the config, let's rewrite the defautl one
-                config.display_slot_labels = utils.toBoolean(ourOptions["display_slot_labels"])
-            end
-
-            if ourOptions["slot_label_margin"] then
-                config.slot_label_margin = tonumber(SETTINGS.options_data.slot_label_margin[tonumber(
-                    ourOptions["slot_label_margin"])]);
-            end
-
-            if ourOptions["slot_button_horizontal_spacing"] then
-                config.slot_button_horizontal_spacing = tonumber(
-                    SETTINGS.options_data.slot_button_horizontal_spacing[tonumber(
-                        ourOptions["slot_button_horizontal_spacing"])]);
-            end
-
-            if ourOptions["slot_button_vertical_spacing"] then
-                config.slot_button_vertical_spacing = tonumber(
-                    SETTINGS.options_data.slot_button_vertical_spacing[tonumber(
-                        ourOptions["slot_button_vertical_spacing"])]);
-            end
-
-            if ourOptions["slot_button_size"] then
-                config.slot_button_size = tonumber(SETTINGS.options_data.slot_button_size[tonumber(
-                    ourOptions["slot_button_size"])]);
-            end
-
-            print("CUI - ModOptions manually loaded from the file");
-
-        end
-
-    end
-
+     -- No config file, let's load the default values
+    setupDefaultConfig()
 end
 
 -- Trigger the options when you launch the game

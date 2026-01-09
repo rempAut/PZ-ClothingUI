@@ -8,8 +8,8 @@ require "ISUI/ISLayoutManager"
 require "ISUI/ISToolTipInv"
 require "TimedActions/ISInventoryTransferAction"
 
-local utils = require "utils/utils"
-local config = require "config";
+local utils = require "pzclothingui/utils/utils"
+local config = require "pzclothingui/config";
 
 myClothingSlot = ISButton:derive("myClothingSlot");
 
