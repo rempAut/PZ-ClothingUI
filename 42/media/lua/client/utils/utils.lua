@@ -1,5 +1,7 @@
 local utils = {};
 
+---@param bodySlot BodyLocation|ItemBodyLocation
+---@return string
 function utils.getBodySlotText(bodySlot)
     local slotId
 
@@ -9,19 +11,21 @@ function utils.getBodySlotText(bodySlot)
 
     -- ItemBodyLocation enum
     else
+        -- fallback for some mods?
         -- tostring(ItemBodyLocation.BELT) -> "BELT"
         slotId = tostring(bodySlot)
     end
 
-    local key = "UI_CUI_" .. slotId
-    local text = getText(key)
+    local translation_name = bodySlot:getTranslationName()
+    local localization_key = "UI_CUI_" .. translation_name
+    local localized_text = getText(localization_key)
 
-    -- If missing localization, return the raw id
-    if text == key then
-        return slotId
+    -- If missing localization, return the translation name of a bodyslot
+    if localized_text == localization_key then
+        return translation_name
     end
 
-    return text
+    return localized_text
 end
 
 function utils.getCategoryButtonText(category)
