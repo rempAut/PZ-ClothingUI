@@ -1,5 +1,4 @@
 {
-    "$schema": "https://raw.githubusercontent.com/SirDoggyJvla/pz-translation-data/refs/heads/main/PZ_Translation_Schemas/IGUI.schema.json",
     "IGUI_CUI_Display_slot_label": "Elbise slot etiketlerinin gösterimi",
     "IGUI_CUI_Display_slot_label_tooltip": "Gizli slot etiketlerini göster ya da gizle",
     "IGUI_CUI_Slot_label_margin": "Elbise slot etiketinin boşluğu",

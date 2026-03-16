@@ -1,5 +1,4 @@
 {
-    "$schema": "https://raw.githubusercontent.com/SirDoggyJvla/pz-translation-data/refs/heads/main/PZ_Translation_Schemas/IGUI.schema.json",
     "IGUI_CUI_Display_slot_label": "Kleidungsplatz-Beschriftungen anzeigen",
     "IGUI_CUI_Display_slot_label_tooltip": "Platz-Beschriftung anzeigen oder ausblenden",
     "IGUI_CUI_Slot_label_margin": "Kleidungsplatz-Beschriftungsabstand",

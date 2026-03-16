@@ -1,5 +1,4 @@
 {
-    "$schema": "https://raw.githubusercontent.com/SirDoggyJvla/pz-translation-data/refs/heads/main/PZ_Translation_Schemas/UI.schema.json",
     "UI_CUI_window_title": "Objets équipés",
     "UI_CUI_Category_HEAD": "TETE",
     "UI_CUI_Category_UNDIES": "DESSOUS",

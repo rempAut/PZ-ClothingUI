@@ -1,5 +1,4 @@
 {
-    "$schema": "https://raw.githubusercontent.com/SirDoggyJvla/pz-translation-data/refs/heads/main/PZ_Translation_Schemas/UI.schema.json",
     "UI_CUI_window_title": "Ausgerüstete Gegenstände",
     "UI_CUI_no_items_avaliable": "Kein verfügbarer Gegenstand im Inventar",
     "UI_CUI_Category_HEAD": "KOPF",
