@@ -1,0 +1,14 @@
+{
+    "$schema": "https://raw.githubusercontent.com/SirDoggyJvla/pz-translation-data/refs/heads/main/PZ_Translation_Schemas/IGUI.schema.json",
+    "IGUI_CUI_Display_slot_label": "Mostrar etiquetas de ranuras de ropa",
+    "IGUI_CUI_Display_slot_label_tooltip": "Mostrar u ocultar etiqueta de ranura",
+    "IGUI_CUI_Slot_label_margin": "Margen de etiqueta de ranura de ropa",
+    "IGUI_CUI_Slot_label_margin_tooltip": "Distancia entre la etiqueta y el icono. Aumentar para mover hacia arriba",
+    "IGUI_CUI_Slot_horizontal_spacing": "Espaciado horizontal de ranuras de ropa",
+    "IGUI_CUI_Slot_horizontal_spacing_tooltip": "Espacio horizontal entre los iconos de ranura",
+    "IGUI_CUI_Slot_vertical_spacing": "Espaciado vertical de ranuras de ropa",
+    "IGUI_CUI_Slot_vertical_spacing_tooltip": "Espacio vertical entre los iconos de ranura",
+    "IGUI_CUI_Slot_button_size": "Tamaño de icono de ranura de ropa",
+    "IGUI_CUI_Slot_button_size_tooltip": "Tamaño del botón"
+}
+

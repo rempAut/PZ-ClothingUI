@@ -1,0 +1,14 @@
+{
+    "$schema": "https://raw.githubusercontent.com/SirDoggyJvla/pz-translation-data/refs/heads/main/PZ_Translation_Schemas/IGUI.schema.json",
+    "IGUI_CUI_Display_slot_label": "显示服装栏位标签",
+    "IGUI_CUI_Display_slot_label_tooltip": "显示或隐藏栏位标签",
+    "IGUI_CUI_Slot_label_margin": "服装栏位标签边距",
+    "IGUI_CUI_Slot_label_margin_tooltip": "标签和图标之间的距离。增加以向上移动",
+    "IGUI_CUI_Slot_horizontal_spacing": "服装栏位水平间距",
+    "IGUI_CUI_Slot_horizontal_spacing_tooltip": "栏位图标之间的水平间隙",
+    "IGUI_CUI_Slot_vertical_spacing": "服装栏位垂直间距",
+    "IGUI_CUI_Slot_vertical_spacing_tooltip": "栏位图标之间的垂直间隙",
+    "IGUI_CUI_Slot_button_size": "服装栏位图标大小",
+    "IGUI_CUI_Slot_button_size_tooltip": "按钮的大小"
+}
+
