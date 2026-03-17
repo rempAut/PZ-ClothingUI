@@ -1,6 +1,7 @@
 -- Using example of mod options as template
 -- Import the actual config module that is shared across the mod
 local config = require "pzclothingui/config"
+local uiPositionManager = require "pzclothingui/uiPositionManager"
 json = require "libs/json"
 local options = PZAPI.ModOptions:create("myclothinguimod", "PZ-ClothingUI Settings")
 
@@ -29,7 +30,7 @@ options:addSlider("slot_button_size", "Clothing slot icon size", 30, 65, 5, 40, 
 local function resetButtonPositions()
     print("CUI - Resetting button positions to default")
 
-    -- Create default parameters
+    -- Create and save default parameters using the position manager
     local defaultParameters = {
         toggleButton = {
             x = 500,
