@@ -285,7 +285,16 @@ function myClothingUI:onGameStart()
     -- place toggle button on the main screen
     toggleButton = ISPanel:new(loadedParams["toggleButton"].x, loadedParams["toggleButton"].y, 50, 50);
     toggleButton.moveWithMouse = true;
-    toggleButton.mybutton = ISButton:new(10, 10, 30, 30, "INV", toggleButton.mybutton, myClothingUI.onMainButtonClicked);
+    -- Create button without text (empty string instead of "INV")
+    toggleButton.mybutton = ISButton:new(10, 10, 30, 30, "", toggleButton.mybutton, myClothingUI.onMainButtonClicked);
+    -- Load and set the custom icon
+    local iconTexture = getTexture("media/textures/JacketLongBrown.png");
+    if iconTexture then
+        toggleButton.mybutton:setImage(iconTexture);
+        toggleButton.mybutton:forceImageSize(24, 24); -- Adjust size to fit nicely in 30x30 button
+    else
+        print("CUI - ERROR: Failed to load icon texture!");
+    end
     toggleButton:addChild(toggleButton.mybutton);
     toggleButton:addToUIManager();
 
