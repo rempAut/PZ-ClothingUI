@@ -1,9 +1,11 @@
 require "ISUI/ISCollapsableWindow"
 require "ISUI/ISPanelJoypad"
 require "ISUI/ISLabel"
+json = require "libs/json"
 local config = require "pzclothingui/config";
 local options = require "pzclothingui/modOptions/options"
 local clothingCategories = require "pzclothingui/clothingCategories";
+local uiPositionManager = require "pzclothingui/uiPositionManager";
 local IBL = ItemBodyLocation
 
 local FONT_HGT_SMALL = getTextManager():getFontHeight(UIFont.Small)
@@ -277,16 +279,22 @@ end
 function myClothingUI:onGameStart()
 
     -- load saved parameters
-    local loadedParams = myClothingUI:loadSavedParameters();
-    loadedParams = myClothingUI:checkParameters(loadedParams);
-
-    -- trigger the default configs
-    config.triggerConfigLoad();
+    local loadedParams = uiPositionManager.loadSavedParameters();
+    loadedParams = uiPositionManager.checkParameters(loadedParams);
 
     -- place toggle button on the main screen
     toggleButton = ISPanel:new(loadedParams["toggleButton"].x, loadedParams["toggleButton"].y, 50, 50);
     toggleButton.moveWithMouse = true;
-    toggleButton.mybutton = ISButton:new(10, 10, 30, 30, "INV", toggleButton.mybutton, myClothingUI.onMainButtonClicked);
+    -- Create button without text (empty string instead of "INV")
+    toggleButton.mybutton = ISButton:new(10, 10, 30, 30, "", toggleButton.mybutton, myClothingUI.onMainButtonClicked);
+    -- Load and set the custom icon
+    local iconTexture = getTexture("media/textures/JacketLongBrown.png");
+    if iconTexture then
+        toggleButton.mybutton:setImage(iconTexture);
+        toggleButton.mybutton:forceImageSize(24, 24); -- Adjust size to fit nicely in 30x30 button
+    else
+        print("CUI - ERROR: Failed to load icon texture!");
+    end
     toggleButton:addChild(toggleButton.mybutton);
     toggleButton:addToUIManager();
 
@@ -299,52 +307,16 @@ function myClothingUI:onGameStart()
     instance:setVisible(false);
 end
 
--- make sure parameter object is always valid
-function myClothingUI:checkParameters(paramIn)
-
-    local xres = getCore():getScreenWidth()
-    local yres = getCore():getScreenHeight()
-
-    -- check if we are not rendering outside of game window
-    if paramIn["toggleButton"].x > xres then
-        paramIn["toggleButton"].x = xres * 0.5;
-    end
-    if paramIn["instance"].x > xres then
-        paramIn["instance"].x = xres * 0.5;
-    end
-
-    if paramIn["toggleButton"].y > yres then
-        paramIn["toggleButton"].y = yres * 0.5;
-    end
-    if paramIn["instance"].y > yres then
-        paramIn["instance"].y = yres * 0.5;
-    end
-
-    return paramIn;
-
+-- Wrapper function for saving UI positions
+-- Called by OnSave event
+function myClothingUI:onSave()
+    uiPositionManager.saveToFile(toggleButton, instance)
 end
 
-function myClothingUI:loadSavedParameters()
-
-    local parameters = {};
-    local loadDefaults = true;
-
-    if loadDefaults == true then
-        print("CUI - Loading default parameters");
-        parameters["toggleButton"] = {
-            x = 500,
-            y = 500
-        };
-        parameters["instance"] = {
-            x = 300,
-            y = 300,
-            width = 8 * config.slot_button_size,
-            height = 9 * (config.slot_button_vertical_spacing + config.slot_button_size)
-        };
-    end
-
-    return parameters
-
+-- Reset UI positions to default values immediately
+-- This is a module-level function that can be called from other modules
+function resetUIPositionsToDefaults()
+    uiPositionManager.resetToDefaults(toggleButton, instance)
 end
 
 
