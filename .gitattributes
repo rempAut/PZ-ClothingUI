@@ -1,3 +1,6 @@
+# Binary files
+*.png binary
+
 # Translation files are encoded differently per-language,
 # see https://github.com/TheIndieStone/ProjectZomboidTranslations/issues/155
 media/lua/shared/Translate/AF/*.txt text working-tree-encoding=cp1252 encoding=utf-8,
@@ -25,3 +28,6 @@ media/lua/shared/Translate/RU/*.txt text working-tree-encoding=cp1251 encoding=u
 media/lua/shared/Translate/TH/*.txt text working-tree-encoding=utf-8 encoding=utf-8,
 media/lua/shared/Translate/TR/*.txt text working-tree-encoding=cp1254 encoding=utf-8,
 media/lua/shared/Translate/UA/*.txt text working-tree-encoding=cp1251 encoding=utf-8,
+
+# Binary files
+*.png binary

@@ -43,17 +43,27 @@ This mod doesn't require any special settings and is setup as any other mod on m
 
 
 ## How to add translation
-1. Go into a folder `media/lua/shared/Translate` [here](https://github.com/rempAut/PZ-ClothingUI/tree/master/media/lua/shared/Translate)
-1. Copy the folder `EN` 
-2. Rename the folder to the code of your language, you can find them [here](https://github.com/TheIndieStone/ProjectZomboidTranslations)
-3. Change the name of the files `UI_EN` and `IG_UI_EN` to `UI_YOUCODE` and `IG_UI_YOURCODE`
-4. Change the first line of the file from `UI_EN` to `UI_YOURCODE`
-5. Translate the texts in the file. 
 
-In case you don't know how to work with GIT, please create a new [ISSUE](https://github.com/rempAut/PZ-ClothingUI/issues) / [thread on steam](https://steamcommunity.com/sharedfiles/filedetails/discussions/2695471997) with translated file and we can add that file to the project.
+### For Build 42 (Current)
+1. Go into the folder `42/media/lua/shared/Translate` [here](https://github.com/rempAut/PZ-ClothingUI/tree/master/42/media/lua/shared/Translate)
+2. Copy the folder `EN`
+3. Rename the folder to the code of your language, you can find them [here](https://github.com/TheIndieStone/ProjectZomboidTranslations)
+4. Edit the files `UI.json` and `IGUI.json`:
+   - Translate the **values** (keep the keys unchanged)
+   - Example: `"UI_CUI_window_title": "Equipped items"` → `"UI_CUI_window_title": "Your Translation"`
+5. Save the files with **UTF-8 encoding** (this is important!)
 
-Note: All the translation files with special characters needs to be saved with encoding Windows-1252 or similar. See this list for the PZ translation files encoding 
-https://github.com/TheIndieStone/ProjectZomboidTranslations/blob/master/.gitattributes
+### For Build 41 (Legacy)
+1. Go into the folder `media/lua/shared/Translate` [here](https://github.com/rempAut/PZ-ClothingUI/tree/master/media/lua/shared/Translate)
+2. Copy the folder `EN`
+3. Rename the folder to the code of your language
+4. Change the name of the files `UI_EN.txt` and `IG_UI_EN.txt` to `UI_YOURCODE.txt` and `IG_UI_YOURCODE.txt`
+5. Change the first line of the file from `UI_EN = {` to `UI_YOURCODE = {`
+6. Translate the texts in the file
+7. Save with appropriate encoding (see [PZ encoding list](https://github.com/TheIndieStone/ProjectZomboidTranslations/blob/master/.gitattributes))
+
+### Submitting Your Translation
+In case you don't know how to work with GIT, please create a new [ISSUE](https://github.com/rempAut/PZ-ClothingUI/issues) / [thread on steam](https://steamcommunity.com/sharedfiles/filedetails/discussions/2695471997) with your translated files and we can add them to the project.
 
 ## How to report issues
 1. Start the game with -debug parameter

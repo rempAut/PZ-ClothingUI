@@ -1,3 +1,4 @@
+PZ-ClothingUI - Clothing items grid view
 [h1]Info[/h1]
 This mode provides alternative graphical UI for equipped clothing items.
 
@@ -7,6 +8,7 @@ This mode provides alternative graphical UI for equipped clothing items.
     [*] Items are displayed in categories (right click category button or item icon for equip possibilities)
     [*] Left mouse double click on item icon for quick unequip 
     [*] Item tooltips on mouse hover
+    [*] (Build 42 only) Configurable hotkey for toggling the window
 [/list]
 
 [h2]Options / configuration[/h2]
@@ -29,8 +31,14 @@ See https://github.com/rempAut/PZ-ClothingUI#multiplayer-support
 Translations are now possible. Supported languages:
 [list]
     [*] English (EN)
-    [*] Russian (RU)
-    [*] Chinese (CN)
+    [*] Russian (RU) - Русский
+    [*] Chinese (CN) - 简体中文
+    [*] German (DE) - Deutsch
+    [*] Spanish (ES) - Español
+    [*] French (FR) - Français
+    [*] Brazilian Portuguese (PTBR) - Português Brasileiro
+    [*] Thai (TH) - ไทย
+    [*] Turkish (TR) - Türkçe
 [/list]
 
 The mode is not text-heavy, so if you want to help with translating, see https://github.com/rempAut/PZ-ClothingUI#how-to-add-translation
