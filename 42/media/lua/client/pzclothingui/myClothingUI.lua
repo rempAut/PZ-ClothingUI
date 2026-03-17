@@ -280,9 +280,6 @@ function myClothingUI:onGameStart()
     local loadedParams = myClothingUI:loadSavedParameters();
     loadedParams = myClothingUI:checkParameters(loadedParams);
 
-    -- trigger the default configs
-    config.triggerConfigLoad();
-
     -- place toggle button on the main screen
     toggleButton = ISPanel:new(loadedParams["toggleButton"].x, loadedParams["toggleButton"].y, 50, 50);
     toggleButton.moveWithMouse = true;

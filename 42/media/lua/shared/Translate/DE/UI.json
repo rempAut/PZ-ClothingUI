@@ -87,5 +87,18 @@
     "UI_CUI_HandPlateRight": "Platte R",
     "UI_CUI_ShinPlateLeft": "Platte L",
     "UI_CUI_ShinPlateRight": "Platte R",
-    "UI_CUI_SpecialMask": "SpezMaske"
+    "UI_CUI_SpecialMask": "SpezMaske",
+    "IGUI_CUI_Display_slot_label": "Kleidungsplatz-Beschriftungen anzeigen",
+    "IGUI_CUI_Display_slot_label_tooltip": "Platz-Beschriftung anzeigen oder ausblenden",
+    "IGUI_CUI_Slot_label_margin": "Kleidungsplatz-Beschriftungsabstand",
+    "IGUI_CUI_Slot_label_margin_tooltip": "Abstand zwischen Beschriftung und Symbol. Erhöhen, um nach oben zu verschieben",
+    "IGUI_CUI_Slot_horizontal_spacing": "Horizontaler Kleidungsplatz-Abstand",
+    "IGUI_CUI_Slot_horizontal_spacing_tooltip": "Horizontaler Abstand zwischen den Platz-Symbolen",
+    "IGUI_CUI_Slot_vertical_spacing": "Vertikaler Kleidungsplatz-Abstand",
+    "IGUI_CUI_Slot_vertical_spacing_tooltip": "Vertikaler Abstand zwischen den Platz-Symbolen",
+    "IGUI_CUI_Slot_button_size": "Kleidungsplatz-Symbolgröße",
+    "IGUI_CUI_Slot_button_size_tooltip": "Größe der Schaltfläche",
+    "IGUI_CUI_Reset_defaults": "Auf Standard zurücksetzen",
+    "IGUI_CUI_Reset_defaults_tooltip": "Alle Einstellungen auf ihre Standardwerte zurücksetzen",
+    "IGUI_CUI_Settings_info": "Hinweis: Schließen und öffnen Sie das Kleidungs-UI-Fenster, um Änderungen zu sehen"
 }

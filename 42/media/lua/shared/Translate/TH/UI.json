@@ -87,5 +87,18 @@
     "UI_CUI_HandPlateRight": "เกราะขวา",
     "UI_CUI_ShinPlateLeft": "สนับแข้งซ้าย",
     "UI_CUI_ShinPlateRight": "สนับแข้งขวา",
-    "UI_CUI_SpecialMask": "หน้ากากพิเศษ"
+    "UI_CUI_SpecialMask": "หน้ากากพิเศษ",
+    "IGUI_CUI_Display_slot_label": "แสดงป้ายกำกับช่องแสดงเครื่องแต่งกาย",
+    "IGUI_CUI_Display_slot_label_tooltip": "แสดงหรือซ่อนป้ายกำกับ",
+    "IGUI_CUI_Slot_label_margin": "ระยะห่างระหว่างป้ายกำกับช่องแสดงเครื่องแต่งกาย",
+    "IGUI_CUI_Slot_label_margin_tooltip": "ระยะห่างระหว่างป้ายกำกับช่องแสดงเครื่องแต่งกายและไอคอน เพิ่มค่าเพื่อเลื่อนขึ้น",
+    "IGUI_CUI_Slot_horizontal_spacing": "ระยะห่างช่องเครื่องแต่งกายในแนวนอน",
+    "IGUI_CUI_Slot_horizontal_spacing_tooltip": "ช่องว่างในแนวนอนระหว่างไอคอนช่องแสดงเครื่องแต่งกาย",
+    "IGUI_CUI_Slot_vertical_spacing": "ระยะห่างช่องเครื่องแต่งกายในแนวตั้ง",
+    "IGUI_CUI_Slot_vertical_spacing_tooltip": "ช่องว่างในแนวตั้งระหว่างไอคอนช่องแสดงเครื่องแต่งกาย",
+    "IGUI_CUI_Slot_button_size": "ขนาดไอคอนช่องแสดงเครื่องแต่งกาย",
+    "IGUI_CUI_Slot_button_size_tooltip": "ขนาดของไอคอนในช่องแสดงเครื่องแต่งกาย",
+    "IGUI_CUI_Reset_defaults": "รีเซ็ตเป็นค่าเริ่มต้น",
+    "IGUI_CUI_Reset_defaults_tooltip": "รีเซ็ตการตั้งค่าทั้งหมดเป็นค่าเริ่มต้น",
+    "IGUI_CUI_Settings_info": "หมายเหตุ: ปิดและเปิดหน้าต่างอินเทอร์เฟซเสื้อผ้าอีกครั้งเพื่อดูการเปลี่ยนแปลง"
 }

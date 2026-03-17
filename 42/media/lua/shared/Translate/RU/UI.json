@@ -71,5 +71,18 @@
     "UI_CUI_UnderwearExtra2": "UndExt2",
     "UI_CUI_ZedDmg": "ZedDmg",
     "UI_CUI_Bandage": "Перевязка",
-    "UI_CUI_Wound": "Рана"
+    "UI_CUI_Wound": "Рана",
+    "IGUI_CUI_Display_slot_label": "Отображать метки слотов одежды",
+    "IGUI_CUI_Display_slot_label_tooltip": "Показать или скрыть метку слота",
+    "IGUI_CUI_Slot_label_margin": "Отступ метки слота одежды",
+    "IGUI_CUI_Slot_label_margin_tooltip": "Расстояние между меткой и значком. Увеличьте, чтобы переместить вверх",
+    "IGUI_CUI_Slot_horizontal_spacing": "Горизонтальный интервал слотов одежды",
+    "IGUI_CUI_Slot_horizontal_spacing_tooltip": "Горизонтальный промежуток между значками слотов",
+    "IGUI_CUI_Slot_vertical_spacing": "Вертикальный интервал слотов одежды",
+    "IGUI_CUI_Slot_vertical_spacing_tooltip": "Вертикальный промежуток между значками слотов",
+    "IGUI_CUI_Slot_button_size": "Размер значка слота одежды",
+    "IGUI_CUI_Slot_button_size_tooltip": "Размер кнопки",
+    "IGUI_CUI_Reset_defaults": "Сбросить на значения по умолчанию",
+    "IGUI_CUI_Reset_defaults_tooltip": "Сбросить все настройки на значения по умолчанию",
+    "IGUI_CUI_Settings_info": "Примечание: Закройте и снова откройте окно интерфейса одежды, чтобы увидеть изменения"
 }

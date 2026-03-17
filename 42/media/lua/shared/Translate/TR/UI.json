@@ -87,5 +87,18 @@
     "UI_CUI_HandPlateRight": "El Plaka Sağ",
     "UI_CUI_ShinPlateLeft": "Ön Plaka Sol",
     "UI_CUI_ShinPlateRight": "Ön Plaka Sağ",
-    "UI_CUI_SpecialMask": "Hurda Maske"
+    "UI_CUI_SpecialMask": "Hurda Maske",
+    "IGUI_CUI_Display_slot_label": "Elbise slot etiketlerinin gösterimi",
+    "IGUI_CUI_Display_slot_label_tooltip": "Gizli slot etiketlerini göster ya da gizle",
+    "IGUI_CUI_Slot_label_margin": "Elbise slot etiketinin boşluğu",
+    "IGUI_CUI_Slot_label_margin_tooltip": "Etiket ve simge arasındaki boşluk. Arttırmak için yükselt",
+    "IGUI_CUI_Slot_horizontal_spacing": "Elbise slotunun yatay boşluğu",
+    "IGUI_CUI_Slot_horizontal_spacing_tooltip": "Slot simgeleri arasındaki yatay mesafe.",
+    "IGUI_CUI_Slot_vertical_spacing": "Elbise slotunun dikey boşluğu",
+    "IGUI_CUI_Slot_vertical_spacing_tooltip": "Slot simgeleri arasındaki dikey mesafe",
+    "IGUI_CUI_Slot_button_size": "Elbise slotunun simge boyutu",
+    "IGUI_CUI_Slot_button_size_tooltip": "Butonun boyutu",
+    "IGUI_CUI_Reset_defaults": "Varsayılanlara sıfırla",
+    "IGUI_CUI_Reset_defaults_tooltip": "Tüm ayarları varsayılan değerlerine sıfırla",
+    "IGUI_CUI_Settings_info": "Not: Değişiklikleri görmek için Giysi Arayüzü penceresini kapatıp yeniden açın"
 }

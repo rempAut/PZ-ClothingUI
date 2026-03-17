@@ -71,5 +71,18 @@
     "UI_CUI_UnderwearExtra2": "R íntima2",
     "UI_CUI_ZedDmg": "Dano por Zed",
     "UI_CUI_Bandage": "Bandagem",
-    "UI_CUI_Wound": "Ferida"
+    "UI_CUI_Wound": "Ferida",
+    "IGUI_CUI_Display_slot_label": "Exibir rótulos de espaços de roupa",
+    "IGUI_CUI_Display_slot_label_tooltip": "Exibir ou ocultar rótulo de espaço",
+    "IGUI_CUI_Slot_label_margin": "Margem do rótulo de espaço de roupa",
+    "IGUI_CUI_Slot_label_margin_tooltip": "Distância entre o rótulo e o ícone. Aumentar para mover para cima",
+    "IGUI_CUI_Slot_horizontal_spacing": "Espaçamento horizontal de espaços de roupa",
+    "IGUI_CUI_Slot_horizontal_spacing_tooltip": "Espaço horizontal entre os ícones de espaço",
+    "IGUI_CUI_Slot_vertical_spacing": "Espaçamento vertical de espaços de roupa",
+    "IGUI_CUI_Slot_vertical_spacing_tooltip": "Espaço vertical entre os ícones de espaço",
+    "IGUI_CUI_Slot_button_size": "Tamanho do ícone de espaço de roupa",
+    "IGUI_CUI_Slot_button_size_tooltip": "Tamanho do botão",
+    "IGUI_CUI_Reset_defaults": "Redefinir para padrões",
+    "IGUI_CUI_Reset_defaults_tooltip": "Redefinir todas as configurações para seus valores padrão",
+    "IGUI_CUI_Settings_info": "Nota: Feche e reabra a janela da interface de roupas para ver as alterações"
 }
