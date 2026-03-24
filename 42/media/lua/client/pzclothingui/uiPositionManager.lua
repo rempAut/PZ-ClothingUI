@@ -1,7 +1,7 @@
 --[[ UI Position Manager
 
 This module handles saving and loading UI element positions (toggle button and main window).
-Positions are persisted to clothingui.ini file.
+Positions are persisted to the INI file specified in config.
 
 ]] --
 
@@ -37,7 +37,7 @@ end
 -- Load saved UI positions from file
 -- Returns table with toggleButton and instance positions
 function uiPositionManager.loadSavedParameters()
-    local reader = getFileReader("clothingui.ini", false)
+    local reader = getFileReader(config.ini_filename, false)
     local parameters = {}
 
     local loadDefaults = false
@@ -131,7 +131,7 @@ function uiPositionManager.saveToFile(toggleButton, instance)
     if instance then
         -- get file
         print("CUI - Writing button location parameters to file")
-        local writer = getFileWriter("clothingui.ini", true, false)
+        local writer = getFileWriter(config.ini_filename, true, false)
 
         -- write button locations parameters
         local savedParameters = uiPositionManager.createSavedParameters(toggleButton, instance)

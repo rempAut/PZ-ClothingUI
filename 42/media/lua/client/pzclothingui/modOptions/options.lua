@@ -45,7 +45,7 @@ local function resetButtonPositions()
     }
 
     -- Write default parameters to file
-    local writer = getFileWriter("clothingui.ini", true, false)
+    local writer = getFileWriter(config.ini_filename, true, false)
     writer:write(json.stringify(defaultParameters))
     writer:close()
 

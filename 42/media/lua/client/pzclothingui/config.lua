@@ -9,6 +9,9 @@ Settings are managed through Build 42's native PZAPI.ModOptions system.
 -- Config object will hold all the configs
 local config = {}
 
+-- INI file name for saving UI positions
+config.ini_filename = "clothinguib42.ini"
+
 -- Default values (used before options are loaded)
 config.display_slot_labels = true
 config.slot_label_margin = 25
